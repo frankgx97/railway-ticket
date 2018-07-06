@@ -2,66 +2,41 @@
 <html class="no-js" lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <div th:include="components/head :: head"></div>
 
-<!-- main-menu Start -->
+<body>
 <div th:include="components/header :: header"></div>
 
-<body>
 <br>
-
 <div class="container">
-    <div class="cont">
-        <table class="table">
-            <tr>
-                <th>车次</th>
-                <th>出发地</th>
-                <th>目的地</th>
-                <th>出发时间</th>
-                <th>返回时间</th>
-                <th>硬座</th>
-                <th>软座</th>
-                <th>硬卧</th>
-                <th>软卧</th>
-                <th>备注</th>
+    <table class="table">
+        <tr>
+            <th>车次</th>
+            <th>出发地</th>
+            <th>目的地</th>
+            <th>出发时间</th>
+            <th>剩余座位</th>
+        </tr>
 
-
-            </tr>
-
-            <tr>
-                <td>z175</td>
-                <td>北京</td>
-                <td>青岛</td>
-                <td>8月15日</td>
-                <td>8月20日</td>
-                <td>23</td>
-                <td>7</td>
-                <td>34</td>
-                <td>0</td>
-                <td>
-                    <a href="buy.html"><input type="button" class="btn btn-primary btn-sm" name="" id="" value="预定" /></a>
-                </td>
-            </tr>
-            <tr>
-                <td>z175</td>
-                <td>北京</td>
-                <td>青岛</td>
-                <td>8月15日</td>
-                <td>8月20日</td>
-                <td>23</td>
-                <td>7</td>
-                <td>34</td>
-                <td>0</td>
-                <td>
-                    <input type="button" class="btn btn-primary btn-sm" name="" id="" value="预定" />
-                </td>
-            </tr>
-
-
-        </table>
-
-
-
-    </div>
-
+        <tr>
+            <td>z175</td>
+            <td>北京</td>
+            <td>青岛</td>
+            <td>8月15日</td>
+            <td>34</td>
+            <td>
+                <a href="buy.html"><input type="button" class="btn btn-primary btn-sm" name="" id="" value="预定" /></a>
+            </td>
+        </tr>
+        <tr>
+            <td>z175</td>
+            <td>北京</td>
+            <td>青岛</td>
+            <td>8月15日</td>
+            <td>233</td>
+            <td>
+                <input type="button" class="btn btn-primary btn-sm" name="" id="" value="预定" />
+            </td>
+        </tr>
+    </table>
 </div>
 
 <!--页脚-->
