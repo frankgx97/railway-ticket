@@ -26,10 +26,10 @@ public class OrderService {
     @Autowired
     private JmsMessagingTemplate jmsMessagingTemplate;
 
-    public int placeOrderService(String userId, String trainId){
+    public int placeOrderService(String userId, Integer trainId){
         ObjectMapper mapper = new ObjectMapper();
         Ticket ticket = new Ticket();
-        Optional<Train> train = trainRepository.findOneByTrainId(trainId);
+        Optional<Train> train = trainRepository.findOneById(trainId);
         Optional<User> user = userRepository.findOneById(userId);
         ticket.name = user.get().getName();
         ticket.departStation = train.get().departStation;
@@ -37,7 +37,7 @@ public class OrderService {
         ticket.destinationStation = train.get().destinationStation;
         ticket.expense = 0;
         ticket.seat = "A1";
-        ticket.trainId = trainId;
+        ticket.trainId = train.get().trainId;
         ticket.status = 0;
         ticket.userId = userId;
 
