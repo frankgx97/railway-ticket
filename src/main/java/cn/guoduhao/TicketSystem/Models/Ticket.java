@@ -8,7 +8,7 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     public Integer id;
-    public Integer userId;
+    public String userId;
     public String name;//姓名
     public String orderId;//订单编号
     public String departTime;//时间
@@ -22,4 +22,5 @@ public class Ticket {
     public Ticket(String name){
         this.name = name;
     }
+    public Ticket(){}
 }

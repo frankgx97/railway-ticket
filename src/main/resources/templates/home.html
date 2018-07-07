@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <title>我的主页</title>
-</head>
+<div th:include="components/head :: head"></div>
+<!-- Custom styles for this template -->
+<link href="assets/css/carousel.css" rel="stylesheet">
 <body>
+<div th:include="components/header :: header"></div>
+
 <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 Logged user: <span sec:authentication="name">Bob</span>
 Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
