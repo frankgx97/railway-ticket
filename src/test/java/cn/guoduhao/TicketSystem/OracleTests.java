@@ -20,7 +20,7 @@ public class OracleTests {
     @Bean
     public void oracleDbTest(){
         Train train = new Train();
-        train.trainId = "G1";
+        train.trainNo = "G1";
         train.departStation = "北京";
         train.destinationStation = "上海";
         train.departTime = "2018-09-01-11:00:00";
