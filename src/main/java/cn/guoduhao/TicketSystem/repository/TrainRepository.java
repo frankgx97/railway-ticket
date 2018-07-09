@@ -1,6 +1,6 @@
 package cn.guoduhao.TicketSystem.repository;
 
-import cn.guoduhao.TicketSystem.Models.Train;
+import cn.guoduhao.TicketSystem.Models.ConsumerModels.Train;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

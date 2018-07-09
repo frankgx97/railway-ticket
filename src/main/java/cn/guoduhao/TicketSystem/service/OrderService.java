@@ -1,7 +1,7 @@
 package cn.guoduhao.TicketSystem.service;
 
-import cn.guoduhao.TicketSystem.Models.Ticket;
-import cn.guoduhao.TicketSystem.Models.Train;
+import cn.guoduhao.TicketSystem.Models.ConsumerModels.Ticket;
+import cn.guoduhao.TicketSystem.Models.ConsumerModels.Train;
 import cn.guoduhao.TicketSystem.Models.User;
 import cn.guoduhao.TicketSystem.repository.TrainRepository;
 import cn.guoduhao.TicketSystem.repository.UserRepository;

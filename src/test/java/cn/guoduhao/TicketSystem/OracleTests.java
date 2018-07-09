@@ -1,8 +1,6 @@
 package cn.guoduhao.TicketSystem;
 
-import cn.guoduhao.TicketSystem.Models.Ticket;
-import cn.guoduhao.TicketSystem.Models.Train;
-import cn.guoduhao.TicketSystem.repository.TicketRepository;
+import cn.guoduhao.TicketSystem.Models.ConsumerModels.Train;
 import cn.guoduhao.TicketSystem.repository.TrainRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;

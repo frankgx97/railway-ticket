@@ -1,15 +1,11 @@
 package cn.guoduhao.TicketSystem;
 
-import cn.guoduhao.TicketSystem.Models.Ticket;
-import cn.guoduhao.TicketSystem.Models.Train;
+import cn.guoduhao.TicketSystem.Models.ConsumerModels.Ticket;
 import cn.guoduhao.TicketSystem.repository.MongoDbRepositories.TicketMongoRepository;
-import cn.guoduhao.TicketSystem.repository.TicketRepository;
-import cn.guoduhao.TicketSystem.repository.TrainRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
