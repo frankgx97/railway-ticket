@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Service;
+import java.util.UUID;
 
 import java.util.Optional;
 
@@ -26,11 +27,12 @@ public class OrderService {
     @Autowired
     private JmsMessagingTemplate jmsMessagingTemplate;
 
-    public int placeOrderService(String userId, Integer trainId){
+    public int placeOrder(String userId, Integer trainId){
         ObjectMapper mapper = new ObjectMapper();
         Ticket ticket = new Ticket();
         Optional<Train> train = trainRepository.findOneById(trainId);
         Optional<User> user = userRepository.findOneById(userId);
+        ticket.id = UUID.randomUUID().toString();
         ticket.name = user.get().getName();
         ticket.departStation = train.get().departStation;
         ticket.departTime = train.get().departTime;
