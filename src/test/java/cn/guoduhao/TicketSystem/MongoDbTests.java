@@ -20,7 +20,7 @@ public class MongoDbTests {
     public void mongoDbWriteTest(){
         Ticket ticket = new Ticket();
         ticket.id = 0;
-        ticket.trainId = "G1";
+        ticket.trainNo = "G1";
         ticket.departStation = "北京";
         ticket.destinationStation = "上海";
         ticket.departTime = "2018-09-01-11:00:00";
