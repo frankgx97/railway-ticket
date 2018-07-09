@@ -37,7 +37,8 @@ public class OrderService {
         ticket.destinationStation = train.get().destinationStation;
         ticket.expense = 0;
         ticket.seat = "A1";
-        ticket.trainId = train.get().trainId;
+        ticket.trainNo = train.get().trainNo;
+        ticket.trainId = train.get().id;
         ticket.status = 0;
         ticket.userId = userId;
 
