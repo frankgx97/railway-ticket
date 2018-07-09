@@ -1,6 +1,6 @@
 package cn.guoduhao.TicketSystem;
 
-import cn.guoduhao.TicketSystem.Models.ConsumerModels.Ticket;
+import cn.guoduhao.TicketSystem.Models.Ticket;
 import cn.guoduhao.TicketSystem.repository.MongoDbRepositories.TicketMongoRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
