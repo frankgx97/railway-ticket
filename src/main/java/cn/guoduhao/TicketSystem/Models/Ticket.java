@@ -3,6 +3,7 @@ package cn.guoduhao.TicketSystem.Models;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 @Table
@@ -29,4 +30,5 @@ public class Ticket {
         this.name = name;
     }
     public Ticket(){}
+
 }
