@@ -30,7 +30,7 @@ public class OrderService {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    public int placeOrder(String userId, Integer trainId){
+    public String placeOrder(String userId, Integer trainId){
         ObjectMapper mapper = new ObjectMapper();
         Ticket ticket = new Ticket();
         Optional<Train> train = trainRepository.findOneById(trainId);
@@ -50,9 +50,9 @@ public class OrderService {
         try{
             String orderJson = mapper.writeValueAsString(ticket);
             this.pushQueue(orderJson);
-            return 0;
+            return ticket.id;
         }catch(Exception e){
-            return 1;
+            return "ERR";
         }
     }
 
@@ -76,5 +76,14 @@ public class OrderService {
             }
         }
         return ticketList;
+    }
+
+    public String checkOrderStatus(String ticketId, String userId){
+        String result = this.stringRedisTemplate.opsForValue().get(ticketId+"-"+userId);
+        if (result.isEmpty()){
+           return"{\"result\":false}";
+        }else{
+            return"{\"result\":true}";
+        }
     }
 }

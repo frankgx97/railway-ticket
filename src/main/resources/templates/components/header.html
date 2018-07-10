@@ -12,6 +12,9 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">首页<span class="sr-only">(current)</span></a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/home">我的订单</a>
+                </li>
             </ul>
             <div th:if="${#httpServletRequest.remoteUser} == NULL">
                 <ul class="navbar-nav">

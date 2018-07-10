@@ -13,8 +13,29 @@
         <div class="progress-bar progress-bar-striped progress-bar-animated bg-success " role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
 </div>
+<script src="/assets/js/jquery-3.3.1.min.js"></script>
 <script>
     //轮询抢票进度
+    $(document).ready(function(){
+       setInterval(function(){
+           $.get("/check_order_state?ticket_id=[[${ticket_id}]]",function(data,status){
+              if(status == "success"){
+                  console.log(data);
+                  rst = JSON.parse(data);
+                  console.log(rst);
+                  if(rst.result == true){
+                      alert("购票成功");
+                      window.location.href="/home";
+                  }else{
+                      alert("购票失败");
+                      window.location.href="/";
+                  }
+              }else{
+                  alert("错误，请重试。");
+              }
+           });
+        },5000);
+    });
 </script>
 </body>
 </html>
