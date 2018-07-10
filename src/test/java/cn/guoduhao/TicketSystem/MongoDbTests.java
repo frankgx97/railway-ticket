@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import java.util.UUID;
 
 
 @RunWith(SpringRunner.class)
@@ -19,7 +20,7 @@ public class MongoDbTests {
     @Test
     public void mongoDbWriteTest(){
         Ticket ticket = new Ticket();
-        ticket.id = 0;
+        ticket.id = UUID.randomUUID().toString();
         ticket.trainNo = "G1";
         ticket.departStation = "北京";
         ticket.destinationStation = "上海";

@@ -7,11 +7,37 @@
 <body>
 <div th:include="components/header :: header"></div>
 
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-Logged user: <span sec:authentication="name">Bob</span>
-Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
-</form>
+<br><br><br>
+<div class="container">
+    <h1 th:inline="text">欢迎，[[${#httpServletRequest.remoteUser}]]!</h1>
+    <br>
+    <h3>我的订单</h3>
+    <table class="table">
+        <tr>
+            <th>姓名</th>
+            <th>车次</th>
+            <th>出发地</th>
+            <th>目的地</th>
+            <th>出发时间</th>
+        </tr>
+
+        <div th:each="ticket,iterStat : ${ticketList}">
+            <tr>
+                <td th:text=${ticket.name}></td>
+                <td th:text=${ticket.trainNo}></td>
+                <td th:text=${ticket.departStation}></td>
+                <td th:text=${ticket.destinationStation}></td>
+                <td th:text=${ticket.departTime}></td>
+            </tr>
+        </div>
+    </table>
+
+    <h3>历史订单</h3>
+    <button onclick="location.href='/history'" type="button" class="btn btn-info">查看历史订单</button>
+    <hr>
+    <form th:action="@{/logout}" method="post">
+        <button class="btn btn-success" type="submit">退出登录</button>
+    </form>
+</div>
 </body>
 </html>

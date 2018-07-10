@@ -1,5 +1,7 @@
 package cn.guoduhao.TicketSystem.Models;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Optional;
 
@@ -7,8 +9,9 @@ import java.util.Optional;
 @Table
 public class Ticket {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    public Integer id;
+    @GeneratedValue(generator="system-uuid", strategy= GenerationType.AUTO)
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    public String id;
     public String userId;
     public String name;//姓名
     public String orderId;//订单编号
