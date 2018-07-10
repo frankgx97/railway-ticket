@@ -2,6 +2,7 @@ package cn.guoduhao.TicketSystem;
 
 import cn.guoduhao.TicketSystem.Models.Ticket;
 import cn.guoduhao.TicketSystem.repository.TicketRepository;
+import cn.guoduhao.TicketSystem.service.ticket.TicketServiceImpl;
 import io.lettuce.core.dynamic.annotation.Param;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -109,6 +110,31 @@ public class TicketSystemApplicationTests {
         else{
             System.out.println("不存在相应的数据！");
         }
+    }
+
+    @Test
+    @Bean
+    public void TicketFuncModifyString(){
+        TicketServiceImpl ts = new TicketServiceImpl(ticketRepository);
+        String test1,test2,test3,test4,test5,test6,test7,test8,test9;
+        test1 = ts.modifyString(0,3,"0000");
+        test2 = ts.modifyString(0,0,"0000");
+        test3 = ts.modifyString(3,0,"0000");
+        test4 = ts.modifyString(1,2,"0000");
+        test5 = ts.modifyString(-1,5,"0000");
+        test6 = ts.modifyString(10,-9,"0000");
+        test7 = ts.modifyString(2,3,"1110");
+        test8 = ts.modifyString(0,1,"0111");
+        test9 = ts.modifyString(1,7,"1100000111");
+        System.out.println("Test1:"+test1);
+        System.out.println("Test2:"+test2);
+        System.out.println("Test3:"+test3);
+        System.out.println("Test4:"+test4);
+        System.out.println("Test5:"+test5);
+        System.out.println("Test6:"+test6);
+        System.out.println("Test7:"+test7);
+        System.out.println("Test8:"+test8);
+        System.out.println("Test9:"+test9);
     }
 
 
