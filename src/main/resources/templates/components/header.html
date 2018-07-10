@@ -1,4 +1,4 @@
-<header>
+<header xmlns:th="http://www.w3.org/1999/xhtml">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="/">铁路售票</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,10 +16,23 @@
                     <a class="nav-link disabled" href="#">Disabled</a>
                 </li>
             </ul>
-            <form class="form-inline mt-2 mt-md-0">
-                <a class="nav-link" href="/register">注册</a>
-                <a class="nav-link" href="/login">登录</a>
-            </form>
+            <div th:if="${#httpServletRequest.remoteUser} == NULL">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/register">注册</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/login">登录</a>
+                    </li>
+                </ul>
+            </div>
+            <div th:if="${#httpServletRequest.remoteUser} != NULL">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/home">你好，[[${#httpServletRequest.remoteUser}]]</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 </header>

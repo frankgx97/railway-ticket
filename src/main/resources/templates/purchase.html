@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<div th:include="components/head :: head"></div>
+<!-- Custom styles for this template -->
+<link href="assets/css/carousel.css" rel="stylesheet">
+<body>
+<div th:include="components/header :: header"></div>
+<br><br><br>
+<div class="container">
+    <h3 align="center">正在处理订单，请稍候...</h3>
+    <br>
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success " role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+</div>
+<script>
+    //轮询抢票进度
+</script>
+</body>
+</html>

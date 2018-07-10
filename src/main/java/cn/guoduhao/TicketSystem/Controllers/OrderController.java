@@ -20,7 +20,7 @@ public class OrderController {
         CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         orderService.placeOrder(currentUser.getId(), Integer.parseInt(request.getParameter("id")));
         map.put("train_id",request.getParameter("id"));
-        return "buy";
+        return "purchase";
     }
 
     @RequestMapping("/check_order_state")
