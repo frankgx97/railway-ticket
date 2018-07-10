@@ -14,6 +14,7 @@
             <th>目的地</th>
             <th>出发时间</th>
             <th>剩余座位</th>
+            <th>票价</th>
             <th>购票</th>
         </tr>
 
@@ -24,21 +25,12 @@
             <td th:text=${train.destinationStation}></td>
             <td th:text=${train.departTime}></td>
             <td th:text=${train.seatsTotal-train.seatsSold}></td>
+            <td th:text=${train.expense}></td>
             <td>
                 <a th:href="@{/purchase?id=} + ${train.id}"><input type="button" class="btn btn-primary btn-sm" name="buy" id="buy" value="购票" /></a>
             </td>
         </tr>
         </div>
-        <tr>
-            <td>z175</td>
-            <td>北京</td>
-            <td>青岛</td>
-            <td>8月15日</td>
-            <td>233</td>
-            <td>
-                <input type="button" class="btn btn-primary btn-sm" name="" id="" value="预定" />
-            </td>
-        </tr>
     </table>
 </div>
 

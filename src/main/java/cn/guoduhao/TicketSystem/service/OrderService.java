@@ -40,8 +40,8 @@ public class OrderService {
         ticket.departStation = train.get().departStation;
         ticket.departTime = train.get().departTime;
         ticket.destinationStation = train.get().destinationStation;
-        ticket.expense = 0;
-        ticket.seat = "A1";
+        ticket.expense = train.get().expense;
+        ticket.seat = this.generateSeatNo();
         ticket.trainNo = train.get().trainNo;
         ticket.trainId = train.get().id;
         ticket.status = 0;
@@ -85,5 +85,14 @@ public class OrderService {
         }else{
             return"{\"result\":true}";
         }
+    }
+
+    private String generateSeatNo(){
+        Random random = new Random();
+        String alphabet = "ABCDEF";
+        String carriage = Integer.toString(random.nextInt(16));
+        String seat = Integer.toString(random.nextInt(12));
+        Character seatNo = alphabet.charAt(random.nextInt(6));
+        return carriage+" - "+seat+seatNo;
     }
 }

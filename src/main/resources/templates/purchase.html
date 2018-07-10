@@ -17,6 +17,7 @@
 <script>
     //轮询抢票进度
     $(document).ready(function(){
+        var times = 0;
        setInterval(function(){
            $.get("/check_order_state?ticket_id=[[${ticket_id}]]",function(data,status){
               if(status == "success"){
@@ -27,8 +28,12 @@
                       alert("购票成功");
                       window.location.href="/home";
                   }else{
-                      alert("购票失败");
-                      window.location.href="/";
+                      console.log("fail");
+                      times++;
+                      if(times >= 10){
+                          alert("购票失败");
+                          window.location.href="/"
+                      }
                   }
               }else{
                   alert("错误，请重试。");
