@@ -1,4 +1,3 @@
-publish_testing
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
