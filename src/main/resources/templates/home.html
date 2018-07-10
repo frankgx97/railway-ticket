@@ -19,6 +19,8 @@
             <th>出发地</th>
             <th>目的地</th>
             <th>出发时间</th>
+            <th>座位号</th>
+            <th>票价</th>
         </tr>
 
         <div th:each="ticket,iterStat : ${ticketList}">
@@ -28,6 +30,8 @@
                 <td th:text=${ticket.departStation}></td>
                 <td th:text=${ticket.destinationStation}></td>
                 <td th:text=${ticket.departTime}></td>
+                <td th:text=${ticket.seat}></td>
+                <td th:text=${ticket.expense}></td>
             </tr>
         </div>
     </table>
