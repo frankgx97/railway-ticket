@@ -130,6 +130,9 @@ public class TicketSystemApplicationTests {
             System.out.println(tickets.get(0).destinationStation);
             System.out.println(tickets.get(0).stations);
         }
+        else{
+            System.out.println("Empty!");
+        }
 
         //查得到
         tickets = ticketService.searchRemanentTicket_BJ_SH("徐州","上海");
@@ -138,6 +141,9 @@ public class TicketSystemApplicationTests {
             System.out.println(tickets.get(0).destinationStation);
             System.out.println(tickets.get(0).stations);
         }
+        else{
+            System.out.println("Empty!");
+        }
 
         //查得到
         tickets = ticketService.searchRemanentTicket_BJ_SH("徐州","镇江");
@@ -145,6 +151,9 @@ public class TicketSystemApplicationTests {
             System.out.println(tickets.get(0).departStation);
             System.out.println(tickets.get(0).destinationStation);
             System.out.println(tickets.get(0).stations);
+        }
+        else{
+            System.out.println("Empty!");
         }
     }
 

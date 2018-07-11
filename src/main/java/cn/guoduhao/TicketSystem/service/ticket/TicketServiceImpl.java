@@ -112,7 +112,7 @@ public class TicketServiceImpl implements TicketService{
         List<Ticket> targetTickets = new ArrayList<>();
         //ToDo 此处推广时需要修改
         List<Ticket> tickets =
-                ticketRepository.findByDepartStationAndDestinationStation("北京","上海");
+                ticketRepository.findByTrainNo("G1");
         //ToDo 此处推广时需要修改
         Integer totalStations = StringToStationNum_BJ_SH("上海"); //总站数
         Integer startNum = StringToStationNum_BJ_SH(startStation); // 乘客上车站
@@ -126,6 +126,7 @@ public class TicketServiceImpl implements TicketService{
             patternStations = patternStations + "0";
         }
         patternStations = patternStations + "[01]{" + remanNum.toString() + "}";
+        //System.out.println(patternStations);
 
         //利用正则遍历车票
         for(int i = 0; i < tickets.size() ;i++){
