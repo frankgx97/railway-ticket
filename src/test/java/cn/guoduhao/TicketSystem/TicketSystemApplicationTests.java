@@ -2,6 +2,7 @@ package cn.guoduhao.TicketSystem;
 
 import cn.guoduhao.TicketSystem.Models.Ticket;
 import cn.guoduhao.TicketSystem.repository.TicketRepository;
+import cn.guoduhao.TicketSystem.repository.TrainRepository;
 import cn.guoduhao.TicketSystem.service.ticket.TicketService;
 import cn.guoduhao.TicketSystem.service.ticket.TicketServiceImpl;
 import io.lettuce.core.dynamic.annotation.Param;
@@ -25,6 +26,8 @@ public class TicketSystemApplicationTests {
 	TicketRepository ticketRepository;
 	@Autowired
 	TicketService ticketService;
+	@Autowired
+    TrainRepository trainRepository;
 
 	@Test
 	@Bean
@@ -147,8 +150,50 @@ public class TicketSystemApplicationTests {
 
     @Test
     @Bean
+    public void TicketBuyRemanentTicket(){
+        Ticket ticket = new Ticket();
+        ticket.name = "郭琦";
+        ticket.orderId = "G1SC02SE23DA20180711TI135500";
+        ticket.departTime = "2018-07-11-13:55:00";
+        ticket.departStation = "徐州";
+        ticket.destinationStation = "镇江";
+        ticket.expense = 355;
+        ticket.status = 1;
+        ticket.userId ="3728";
+        ticket.trainNo = "G1";
+        ticket.seat = "SC23SE23"; // Section 02 Seat 23 第二节车厢 23号座位
+        ticket.stations = "";
+        ticket.version = "0";
+
+	    ticketService.buyRemanentTicket_BJ_SH(ticket);
+
+    }
+
+    @Test
+    @Bean
+    public void TicketBuyTicket(){
+        Ticket ticket = new Ticket();
+        ticket.name = "郭琦";
+        ticket.orderId = "G1SC02SE23DA20180711TI135500";
+        ticket.departTime = "2018-07-11-13:55:00";
+        ticket.departStation = "北京";
+        ticket.destinationStation = "上海";
+        ticket.expense = 355;
+        ticket.status = 1;
+        ticket.userId ="3728";
+        ticket.trainNo = "G1";
+        ticket.seat = "SC23SE23"; // Section 02 Seat 23 第二节车厢 23号座位
+        //ticket.stations = "";
+        ticket.version = "0";
+
+        ticketService.buyTicket_BJ_SH(ticket);
+
+    }
+
+    @Test
+    @Bean
     public void TicketFuncModifyString(){
-        TicketServiceImpl ts = new TicketServiceImpl(ticketRepository);
+        TicketServiceImpl ts = new TicketServiceImpl(ticketRepository,trainRepository);
         String test1,test2,test3,test4,test5,test6,test7,test8,test9;
         test1 = ts.modifyString(0,3,"0000");
         test2 = ts.modifyString(0,0,"0000");

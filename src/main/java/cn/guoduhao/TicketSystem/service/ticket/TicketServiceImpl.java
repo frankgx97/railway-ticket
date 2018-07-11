@@ -1,11 +1,14 @@
 package cn.guoduhao.TicketSystem.service.ticket;
 
 import cn.guoduhao.TicketSystem.Models.Ticket;
+import cn.guoduhao.TicketSystem.Models.Train;
 import cn.guoduhao.TicketSystem.repository.TicketRepository;
+import cn.guoduhao.TicketSystem.repository.TrainRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.naming.directory.SearchResult;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,14 +21,83 @@ public class TicketServiceImpl implements TicketService{
     //导入ticketRepository
     private final TicketRepository ticketRepository;
 
+    private final TrainRepository trainRepository;
+
     @Autowired //无需实例化，交给Spring管理
-    public TicketServiceImpl(TicketRepository ITicketRepository){
+    public TicketServiceImpl(TicketRepository ITicketRepository, TrainRepository ITrainRepository){
         this.ticketRepository = ITicketRepository;
+        this.trainRepository = ITrainRepository;
     }
 
     @Override
     public Optional<Ticket> getTicketByUserId(String userId){
         return this.ticketRepository.findOneByUserId(userId);
+    }
+
+    @Override
+    public Integer buyTicket_BJ_SH(Ticket newTicket){
+        boolean isSuccess = buyRemanentTicket_BJ_SH(newTicket);
+        if(isSuccess){
+            return 1;
+        }
+        else{
+            //ToDo 需要更改 进入NoSQL中查询含有顾客上车和下车站的trainNo, 再根据TrainNo检索
+            List<Train> trains =
+                trainRepository.findByDepartStationAndDestinationStation("北京","上海");
+            Integer remanentTickets = trains.get(0).seatsTotal - trains.get(0).seatsSold;
+            if(remanentTickets > 0){
+                String startStation = newTicket.departStation;
+                String arriveStation =newTicket.destinationStation;
+                String defaultStation = createStations("北京","上海");
+                String newStations = modifyStations(startStation,arriveStation,defaultStation);
+                trains.get(0).seatsSold += 1;
+                newTicket.stations = newStations;
+                ticketRepository.save(newTicket);
+                trainRepository.save(trains.get(0));
+                return 1;
+            }
+            else{
+                return 2;
+            }
+        }
+    }
+
+    //ToDo JB_SH推广时需要修改
+    @Override
+    public boolean buyRemanentTicket_BJ_SH(Ticket newTicket){
+        //读出传入数据的起始站和目的站
+        String startStation = newTicket.departStation;
+        String arriveStation = newTicket.destinationStation;
+        //ToDo JB_SH推广时需要修改
+        List<Ticket> targetTickets = searchRemanentTicket_BJ_SH(startStation,arriveStation);
+        //搜索符合条件的剩余票
+        if(!targetTickets.isEmpty()){
+            String targetStations = targetTickets.get(0).stations;
+            String newStations = modifyStations(startStation,arriveStation,targetStations);
+            if (newStations.equals(targetStations)){ //若stations未发生改动
+                return false; // 则返回 表示修改失败 购票失败 剩余的票中已经没有满足需求的分段票了
+            }
+            else{
+                //同时更新新票和已经购入票的stations字段
+                newTicket.stations = newStations;
+                targetTickets.get(0).stations = newStations;
+                //ToDo:改
+                if (newStations.equals(modifyStations("北京","上海",""))){
+                    Optional<Train> train = trainRepository.findOneByTrainNo(targetTickets.get(0).trainNo);
+                    if(train.isPresent()){
+                        train.get().seatsSold += 1;
+                        trainRepository.save(train.get());
+                    }
+                    return true; //表示需要在上层函数中从总票数里卖出一张
+                }
+
+                //将这两张票在数据库中更新
+                ticketRepository.save(newTicket);
+                ticketRepository.save(targetTickets.get(0));
+                return true; //返回 1购票成功 表示此次购票可以在剩余的票中解决
+            }
+        }
+        return false; // 返回 0购票失败 剩余的票中已经没有满足需求的分段票了
     }
 
     //ToDo 添加北京至上海的分段查找功能 如果铁路线路过多需要使用数据库存储。具体实现逻辑在石墨文档
@@ -103,6 +175,20 @@ public class TicketServiceImpl implements TicketService{
         }
         //返回新的stations信息
         return Arrays.toString(newStations).replaceAll("[\\[\\]\\s,]", "");
+    }
+
+    private String createStations(String departStation,String destinationaStation){
+        Integer departNum = StringToStationNum_BJ_SH(departStation);
+        Integer destinationNum = StringToStationNum_BJ_SH(destinationaStation);
+        return createStations(departNum,destinationNum);
+    }
+
+    private String createStations(Integer departNum,Integer destinationNum){
+        String defaultStation = "";
+        for(int i = departNum; i < destinationNum ; i++){
+            defaultStation = defaultStation + "0";
+        }
+        return defaultStation;
     }
 
     //北京-上海的火车站数
