@@ -1,0 +1,259 @@
+*{
+	padding: 0px;
+	margin: 0px;
+}
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    border: 0;
+    list-style: none;
+    margin: 0;
+        margin-bottom: 0px;
+    padding: 0;
+        padding-right: 0px;
+        
+    font-size: 14px;
+}
+/*页头*/
+header{
+	height: 66px;
+	background: url(../img/bg.png) repeat-x ;
+}
+.login_bg{
+	width: 1000px;
+	height: 66px;
+	margin: auto;
+	/*background: red;*/
+
+}
+.login{
+	float: left;
+	width: 430px;
+	height: 60px;
+	/*background-color: red;*/
+	background: url(../img/logo.png) 12px 8px no-repeat;
+	padding: 8px 0 0 12px;
+	/*text-indent: -9999px;*/
+}
+.login-info {
+    height: 30px;
+    line-height: 30px;
+    float: right;
+    padding-right: 5px;
+    margin-bottom: 2px;
+    font-size: 14px;
+}
+.login-info .phone-link {
+    background: url(../images/icon_phone.png) left center no-repeat;
+    padding-left: 15px;
+    float: right;
+    margin-left: 25px;
+}
+.login-info a {
+    color: #666;
+}
+.login-info .phone-link {
+    background: url(../img/icon_phone.png) left center no-repeat;
+    padding-left: 15px;
+    float: right;
+    margin-left: 25px;
+}
+.login-info .login-txt {
+    float: right;
+}
+.login-info .colorA {
+    color: #fb7403;
+}
+.menu {
+    float: right;
+    width: 80px;
+    height: 30px;
+    margin-left: 35px;
+    position: relative;
+    z-index: 2999;
+    text-align: left;
+}
+.menu .menu-list {
+    width: 130px;
+    padding: 5px 10px;
+    border: 1px solid #298cce;
+    background: #eef1f8;
+    position: absolute;
+    top: 30px;
+    left: -2px;
+    z-index: 2999;
+    display: none;
+}
+.menu .menu-bd {
+    display: block;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+}
+.nav {
+    width: 420px;
+    height: 34px;
+    padding: 0 0 0 63px;
+    background: url(../img/bg_nav.png) right top no-repeat;
+    float: right;
+    position: relative;
+}
+
+.nav li {
+    float: left;
+    width: 70px;
+    height: 30px;
+    text-align: center;
+    margin-right: 10px;
+    margin-top: 4px;
+}
+
+
+.nav li a {
+    display: block;
+    height: 28px;
+    line-height: 28px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    text-decoration:none;
+}
+
+.nav .nav-list {
+    width: 980px;
+    height: 32px;
+    padding: 0 10px;
+    background: url(../img/bg_navlist.png) repeat-x;
+    border-bottom: 1px solid #999;
+    position: absolute;
+    top: 34px;
+    right: 0;
+    z-index: 2899;
+    display: none;
+    box-shadow: 2px 2px 5px #666;
+    display: none;
+}
+
+.nav .nav-list li {
+    height: 16px;
+    line-height: 16px;
+    padding: 8px 0;
+    overflow: hidden;
+    width: auto;
+    text-align: left;
+    float: right;
+    margin-left: 30px;
+    margin-top: 0;
+    background: 0;
+}
+
+.nav .nav-list li a {
+    display: inline;
+    padding-left: 5px;
+    color: #666;
+    height: 16px;
+    line-height: 16px;
+    font-weight: 400;
+    background: 0;
+    /*text-decoration:none;*/
+}
+
+.nav .nav-guide:hover .nav-list{
+	display: block;
+}
+
+.content{
+	width: 1000px;
+	height: 500px ;
+	margin: auto;
+}
+
+.content .cont{
+	margin-top: 40px;
+	width: 100%;
+	height: 470px;
+	background: #eef1f8 ;
+	/*padding-top: 40px;
+	padding-bottom: 20px;*/
+	/*background: url(../img/timg.jpg) no-repeat 150px ;
+	opacity: 0.3;*/
+}
+.content .cont .seek{
+	width: 100%;
+	height: 100px;
+	padding-top: 10px;
+	/*margin-bottom: 10px;*/
+	}
+.radio {
+    margin-right: 4px;
+    vertical-align: -3px;
+}
+/*.seek-left{
+	width: 100px;
+	height: 300px;
+	background: red;
+}*/
+
+/*.seek-right{
+	width: 400px;
+	height: 300px;
+	background: blueviolet;
+}
+.seek-left,.seek-right{
+	float: left;
+}*/
+
+.sidebar {
+    float: left;
+    margin-right: 10px;
+    width: 100%
+}
+
+.layout {
+    background-position: 0 -400px;
+    border: 1px solid #1678be;
+    border-radius: 5px 5px 0 0;
+}
+
+.layout .lay-hd {
+    color: #e5f8ff;
+    font-size: 14px;
+    height: 32px;
+    line-height: 30px;
+    padding-left: 20px;
+    position: relative;
+    background: #1678be;
+}
+.mm{
+	margin-top: 20px;
+	height: 250px;
+	overflow-y: auto;
+	/*height: auto;*/
+}
+.my .lay-bd {
+    background: #eef1f8 none repeat scroll 0 0;
+    padding: 20px 14px;
+    position: relative;
+    z-index: 0;
+    /*height: 100px;*/
+}
+
+
+
+/*页脚*/
+.footer{
+	/*width: ;*/
+    /*height: 100px;*/
+    line-height: 20px;
+    padding: 20px 0;
+    border-top: 2px solid #468dcd;
+    background: #f6f6f6;
+    margin-top: 10px;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+}
+
+.footer a {
+    color: #999;
+    margin: 0 5px;
+    text-decoration: none;
+}

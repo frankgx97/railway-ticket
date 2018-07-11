@@ -1,0 +1,49 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<div th:include="components/head :: head"></div>
+<title>铁路售票 - 车次查询</title>
+<body>
+<div th:include="components/header :: header"></div>
+
+<br><br><br>
+<div class="container">
+    <table class="table">
+        <tr>
+            <th>车次</th>
+            <th>出发地</th>
+            <th>目的地</th>
+            <th>出发时间</th>
+            <th>剩余座位</th>
+            <th>票价</th>
+            <th>购票</th>
+        </tr>
+
+        <div th:each="train,iterStat : ${trains}">
+        <tr>
+            <td th:text=${train.trainNo}></td>
+            <td th:text=${train.departStation}></td>
+            <td th:text=${train.destinationStation}></td>
+            <td th:text=${train.departTime}></td>
+            <td th:text=${train.seatsTotal-train.seatsSold}></td>
+            <td th:text=${train.expense}></td>
+            <td>
+                <a th:href="@{/purchase?id=} + ${train.id}"><input type="button" class="btn btn-primary btn-sm" name="buy" id="buy" value="购票" /></a>
+            </td>
+        </tr>
+        </div>
+    </table>
+</div>
+
+<!--页脚-->
+<div class="footer">
+    <p>
+        <a href="#" target="true">关于我们</a>
+        |
+        <a href="#" target="true">网站声明</a>
+    </p>
+    <p>版权所有 © 2008-2017 中国铁路信息技术中心 中国铁道科学研究院</p>
+    <p>京ICP备15003716号-3&nbsp;&nbsp;|&nbsp;&nbsp;京ICP证150437号</p>
+</div>
+</body>
+
+</html>
