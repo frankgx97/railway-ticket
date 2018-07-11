@@ -26,6 +26,7 @@ public class OracleTests {
         train.departTime = "2018-09-01-11:00:00";
         train.seatsTotal = 500;
         train.seatsSold = 70;
+        train.expense = 700;
         trainRepository.save(train);
     }
 }
