@@ -5,8 +5,12 @@ import cn.guoduhao.TicketSystem.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.naming.directory.SearchResult;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.regex.*;
 
 @Service
 public class TicketServiceImpl implements TicketService{
@@ -24,7 +28,34 @@ public class TicketServiceImpl implements TicketService{
         return this.ticketRepository.findOneByUserId(userId);
     }
 
+    @Override
+    public List<Ticket> searchRemanentTicket_BJ_SH(String startStation, String arriveStation){
+        List<Ticket> targetTickets = new ArrayList<>();
+        List<Ticket> tickets =
+                ticketRepository.findByDepartStationAndDestinationStation("北京","上海");
+        Integer totalStations = StringToStationNum_BJ_SH("上海");
+        Integer startNum = StringToStationNum_BJ_SH(startStation);
+        Integer arriveNum = StringToStationNum_BJ_SH(arriveStation);
+        Integer remanNum = totalStations - arriveNum;
 
+        //使用String组合出对应的正则表达式
+        String patternStations = "";
+        patternStations = "[01]{" + startNum.toString() + "}";
+        for(int i = startNum; i < arriveNum ; i++){
+            patternStations = patternStations + "0";
+        }
+        patternStations = patternStations + "[01]{" + remanNum.toString() + "}";
+
+        for(int i = 0; i < tickets.size() ;i++){
+            boolean isMatch = Pattern.matches(patternStations,tickets.get(i).stations);
+            if(isMatch){
+                targetTickets.add(tickets.get(i));
+            }
+        }
+        return targetTickets;
+    }
+
+    @Override
     public String modifiedTicketStation(Ticket ticket){
         return modifyStations(ticket.departStation,ticket.destinationStation,ticket.stations);
     }

@@ -2,6 +2,7 @@ package cn.guoduhao.TicketSystem.service.ticket;
 
 import cn.guoduhao.TicketSystem.Models.Ticket;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface TicketService {
@@ -10,7 +11,7 @@ public interface TicketService {
 
     String modifiedTicketStation(Ticket ticket);
 
-    //Integer searchRemanentTicket(String departStation,String destinationStaion);
+    List<Ticket> searchRemanentTicket_BJ_SH(String startStation, String arriveStation);
 
 
 

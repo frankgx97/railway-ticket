@@ -2,6 +2,7 @@ package cn.guoduhao.TicketSystem;
 
 import cn.guoduhao.TicketSystem.Models.Ticket;
 import cn.guoduhao.TicketSystem.repository.TicketRepository;
+import cn.guoduhao.TicketSystem.service.ticket.TicketService;
 import cn.guoduhao.TicketSystem.service.ticket.TicketServiceImpl;
 import io.lettuce.core.dynamic.annotation.Param;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @RunWith(SpringRunner.class)
@@ -21,6 +23,8 @@ import java.util.Optional;
 public class TicketSystemApplicationTests {
 	@Autowired
 	TicketRepository ticketRepository;
+	@Autowired
+	TicketService ticketService;
 
 	@Test
 	@Bean
@@ -57,7 +61,7 @@ public class TicketSystemApplicationTests {
         ticket.userId ="3721";
         ticket.trainNo = "G2";
         ticket.seat = "SC23SE23"; // Section 02 Seat 23 第二节车厢 23号座位
-        ticket.stations = "11110000000";
+        ticket.stations = "1111000000";
         ticket.version = "0";
 
         ticketRepository.save(ticket);
@@ -104,7 +108,7 @@ public class TicketSystemApplicationTests {
     public void TicketRepoUpdate(){
         Optional<Ticket> ticket1 = ticketRepository.findOneByUserId("3721");
         if(ticket1.isPresent()){
-            ticket1.get().stations = "111133332220";
+            ticket1.get().stations = "1111111000";
             ticketRepository.save(ticket1.get());
         }
         else{
@@ -114,18 +118,31 @@ public class TicketSystemApplicationTests {
 
     @Test
     @Bean
-    public void TicketFuncModify(){
-        Optional<Ticket> ticket = ticketRepository.findOneByUserId("3721");
-        if(ticket.isPresent()){
-            ticket.get().userId = "3722";
-            ticket.get().name = "刘伯";
-            ticket.get().departStation = "镇江";
-            ticket.get().destinationStation = "上海";
-            TicketServiceImpl ts = new TicketServiceImpl(ticketRepository);
-            ticket.get().stations = ts.modifiedTicketStation(ticket.get());
-            ticketRepository.save(ticket.get());
+    public void TicketSearch(){
+        List<Ticket> tickets =
+                ticketService.searchRemanentTicket_BJ_SH("德州","上海");
+        //查不到
+        if(!tickets.isEmpty()) {
+            System.out.println(tickets.get(0).departStation);
+            System.out.println(tickets.get(0).destinationStation);
+            System.out.println(tickets.get(0).stations);
         }
 
+        //查得到
+        tickets = ticketService.searchRemanentTicket_BJ_SH("徐州","上海");
+        if(!tickets.isEmpty()) {
+            System.out.println(tickets.get(0).departStation);
+            System.out.println(tickets.get(0).destinationStation);
+            System.out.println(tickets.get(0).stations);
+        }
+
+        //查得到
+        tickets = ticketService.searchRemanentTicket_BJ_SH("徐州","镇江");
+        if(!tickets.isEmpty()) {
+            System.out.println(tickets.get(0).departStation);
+            System.out.println(tickets.get(0).destinationStation);
+            System.out.println(tickets.get(0).stations);
+        }
     }
 
     @Test
