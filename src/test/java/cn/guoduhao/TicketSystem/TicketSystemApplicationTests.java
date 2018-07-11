@@ -176,7 +176,7 @@ public class TicketSystemApplicationTests {
         ticket.name = "郭琦";
         ticket.orderId = "G1SC02SE23DA20180711TI135500";
         ticket.departTime = "2018-07-11-13:55:00";
-        ticket.departStation = "北京";
+        ticket.departStation = "苏州";
         ticket.destinationStation = "上海";
         ticket.expense = 355;
         ticket.status = 1;
