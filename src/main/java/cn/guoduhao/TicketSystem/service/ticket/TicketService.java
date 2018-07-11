@@ -8,6 +8,10 @@ public interface TicketService {
 
     Optional<Ticket> getTicketByUserId(String userId);
 
+    String modifiedTicketStation(Ticket ticket);
+
+    //Integer searchRemanentTicket(String departStation,String destinationStaion);
+
 
 
 

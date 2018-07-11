@@ -24,6 +24,24 @@ public class TicketServiceImpl implements TicketService{
         return this.ticketRepository.findOneByUserId(userId);
     }
 
+
+    public String modifiedTicketStation(Ticket ticket){
+        return modifyStations(ticket.departStation,ticket.destinationStation,ticket.stations);
+    }
+
+    //传入: String depart 站名
+    //输出: stations
+    //ToDo 分站购票中，如果有多条火车线路，需要在这里修改StringToStationNum_BJ_SH成别的对应关系
+    //或者做个switch，多加一个参数，让函数选择哪条线路的车票对应关系
+    private String modifyStations(String departStation,String destinationStation,String stations){
+        Integer departNum = StringToStationNum_BJ_SH(departStation);
+        Integer destinationNum = StringToStationNum_BJ_SH(destinationStation);
+        return modifyString(departNum,destinationNum,stations);
+    }
+
+    //分段式构建
+    //北京-石家庄-邯郸-郑州
+    //    0      0    0
     //以下是用于分段购票的实现函数
     public String modifyString(Integer departNum , Integer destinationNum,String stations) {
         //若选择的起始站比终点站还远 或 起始站与终点站相同
@@ -33,15 +51,15 @@ public class TicketServiceImpl implements TicketService{
         }
         Integer stationsLength = stations.length();
         //若选择的起始站和终点站位置超过范围
-        if(departNum<0 || destinationNum>(stationsLength-1)){
+        if(departNum<0 || destinationNum>(stationsLength)){
             //直接返回stations 不予处理
             return stations;
         }
         //新的stations信息
         char[] newStations = stations.toCharArray();
-        newStations[departNum] = '1';
-        newStations[destinationNum] = '1';
-        for(Integer temp = departNum + 1 ; temp < destinationNum ; temp++){
+//        newStations[departNum] = '1';
+//        newStations[destinationNum] = '1';
+        for(Integer temp = departNum  ; temp < destinationNum ; temp++){
             if(stations.charAt(temp) == '1'){
                 return stations;
             }
@@ -51,7 +69,32 @@ public class TicketServiceImpl implements TicketService{
         return Arrays.toString(newStations).replaceAll("[\\[\\]\\s,]", "");
     }
 
-//    public boolean modifyStations(){
-//
-//    }
+    //北京-上海的火车站数
+    // 0 北京 1 天津西 2 沧州 3 德州 4 徐州 5 南京 6 镇江 7 常州 8 无锡 9 苏州 10 上海
+    /**
+    * @author 田昕峣
+     * @param stationName
+     *  车站名
+     * @return homoNum
+     *  转换好的对应车站序号
+    * */
+    //ToDo 此函数可放入数据库，以简化代码
+    private Integer StringToStationNum_BJ_SH(String stationName){
+        Integer homoNum;
+        switch (stationName){
+            case"北京": homoNum = 0; break;
+            case"天津西": homoNum = 1; break;
+            case"沧州": homoNum = 2; break;
+            case"德州": homoNum = 3; break;
+            case"徐州": homoNum = 4; break;
+            case"南京": homoNum = 5; break;
+            case"镇江": homoNum = 6; break;
+            case"常州": homoNum = 7; break;
+            case"无锡": homoNum = 8; break;
+            case"苏州": homoNum = 9; break;
+            case"上海": homoNum = 10; break;
+            default:homoNum = -1;break;
+        }
+        return homoNum;
+    }
 }

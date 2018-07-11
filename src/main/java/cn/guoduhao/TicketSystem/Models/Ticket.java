@@ -12,7 +12,7 @@ public class Ticket {
     @GeneratedValue(generator="system-uuid", strategy= GenerationType.AUTO)
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     public String id;
-    public String userId;
+    public String userId; //数据库改成了Integer
     public String name;//姓名
     public String orderId;//订单编号
     public String departTime;//时间
@@ -20,7 +20,7 @@ public class Ticket {
     public String destinationStation;//终点
     public Integer expense;//车费
     public Integer status;//车票状态
-    public String trainNo;//车次
+    public String trainNo;//车次 //数据库里没有了
     public Integer trainId;//火车id
     public String seat;//座位
     public String stations;//途经车站

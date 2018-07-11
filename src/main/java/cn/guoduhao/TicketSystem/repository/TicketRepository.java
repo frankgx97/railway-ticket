@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TicketRepository extends JpaRepository<Ticket, Integer> {
-    Optional<Ticket> findOneById(Integer id);
+    Optional<Ticket> findOneById(String id);
     Optional<Ticket> findOneByUserId(String userId);
     Optional<Ticket> findOneByOrderId(String orderId);
-    List<Ticket> findByTrainNo(String trainNo);
+    List<Ticket> findByTrainId(Integer trainId);
     List<Ticket> findByDepartStationAndDestinationStationAndDepartTime(String departStation, String destinationStation, String departTime);
     List<Ticket> findByDepartStationAndDestinationStation(String departStation,String destinationStation);
     List<Ticket> findByStations(String stations);

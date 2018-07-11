@@ -57,38 +57,38 @@ public class TicketSystemApplicationTests {
         ticket.userId ="3721";
         ticket.trainNo = "G2";
         ticket.seat = "SC23SE23"; // Section 02 Seat 23 第二节车厢 23号座位
-        ticket.stations = "11111111111";
+        ticket.stations = "11110000000";
         ticket.version = "0";
 
         ticketRepository.save(ticket);
     }
 
-    @Test
-    @Bean
-    public void TicketSearchTestById(){
-        //按id查找存在的票据
-        Optional<Ticket> ticket1 = ticketRepository.findOneById(86);
-        //注意，调用get前需先调用isPresent检验是否存在。
-        if(ticket1.isPresent()) {
-            String stations1 = ticket1.get().stations;
-            System.out.println(stations1);
-        }
-
-        //按id查找不存在的票据
-        Optional<Ticket> ticket2 = ticketRepository.findOneById(0);
-        if(ticket2.isPresent()) {
-            String stations2 = ticket2.get().stations;
-            System.out.println(stations2);
-        }
-
-        //按id再次查找存在的票据
-        Optional<Ticket> ticket3 = ticketRepository.findOneById(86);
-        if(ticket3.isPresent()) {
-            String stations3 = ticket3.get().stations;
-            System.out.println(stations3);
-        }
-
-    }
+//    @Test
+//    @Bean
+//    public void TicketSearchTestById(){
+//        //按id查找存在的票据
+//        Optional<Ticket> ticket1 = ticketRepository.findOneById();
+//        //注意，调用get前需先调用isPresent检验是否存在。
+//        if(ticket1.isPresent()) {
+//            String stations1 = ticket1.get().stations;
+//            System.out.println(stations1);
+//        }
+//
+//        //按id查找不存在的票据
+//        Optional<Ticket> ticket2 = ticketRepository.findOneById(0);
+//        if(ticket2.isPresent()) {
+//            String stations2 = ticket2.get().stations;
+//            System.out.println(stations2);
+//        }
+//
+//        //按id再次查找存在的票据
+//        Optional<Ticket> ticket3 = ticketRepository.findOneById(86);
+//        if(ticket3.isPresent()) {
+//            String stations3 = ticket3.get().stations;
+//            System.out.println(stations3);
+//        }
+//
+//    }
 
     @Test
     @Bean
@@ -104,12 +104,28 @@ public class TicketSystemApplicationTests {
     public void TicketRepoUpdate(){
         Optional<Ticket> ticket1 = ticketRepository.findOneByUserId("3721");
         if(ticket1.isPresent()){
-            ticket1.get().stations = "11110000000000";
+            ticket1.get().stations = "111133332220";
             ticketRepository.save(ticket1.get());
         }
         else{
             System.out.println("不存在相应的数据！");
         }
+    }
+
+    @Test
+    @Bean
+    public void TicketFuncModify(){
+        Optional<Ticket> ticket = ticketRepository.findOneByUserId("3721");
+        if(ticket.isPresent()){
+            ticket.get().userId = "3722";
+            ticket.get().name = "刘伯";
+            ticket.get().departStation = "镇江";
+            ticket.get().destinationStation = "上海";
+            TicketServiceImpl ts = new TicketServiceImpl(ticketRepository);
+            ticket.get().stations = ts.modifiedTicketStation(ticket.get());
+            ticketRepository.save(ticket.get());
+        }
+
     }
 
     @Test
