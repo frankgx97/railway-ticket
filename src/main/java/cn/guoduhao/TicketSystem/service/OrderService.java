@@ -62,7 +62,7 @@ public class OrderService {
     }
 
     public List<Ticket> readOrdersFromRedis(String userId){
-        Set<String> keys = this.stringRedisTemplate.keys("*"+userId);
+        Set<String> keys = this.stringRedisTemplate.keys("*"+userId+"*");
         List<String> jsonList = this.stringRedisTemplate.opsForValue().multiGet(keys);
 
         List<Ticket> ticketList = new ArrayList<>();
@@ -79,11 +79,16 @@ public class OrderService {
     }
 
     public String checkOrderStatus(String ticketId, String userId){
-        String result = this.stringRedisTemplate.opsForValue().get(ticketId+"-"+userId);
-        if (result.isEmpty()){
-           return"{\"result\":false}";
-        }else{
-            return"{\"result\":true}";
+        try{
+            Set<String> keys = this.stringRedisTemplate.keys(ticketId+"*");
+            List<String> jsonList = this.stringRedisTemplate.opsForValue().multiGet(keys);
+            if (jsonList.isEmpty()){
+                return"{\"result\":false}";
+            }else{
+                return"{\"result\":true}";
+            }
+        }catch(Exception e){
+            return"{\"result\":false}";
         }
     }
 
@@ -95,4 +100,5 @@ public class OrderService {
         Character seatNo = alphabet.charAt(random.nextInt(6));
         return carriage+" - "+seat+seatNo;
     }
+
 }
