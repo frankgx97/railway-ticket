@@ -28,15 +28,18 @@ public class TicketServiceImpl implements TicketService{
         return this.ticketRepository.findOneByUserId(userId);
     }
 
+    //ToDo 添加北京至上海的分段查找功能 如果铁路线路过多需要使用数据库存储。具体实现逻辑在石墨文档
     @Override
     public List<Ticket> searchRemanentTicket_BJ_SH(String startStation, String arriveStation){
         List<Ticket> targetTickets = new ArrayList<>();
+        //ToDo 此处推广时需要修改
         List<Ticket> tickets =
                 ticketRepository.findByDepartStationAndDestinationStation("北京","上海");
-        Integer totalStations = StringToStationNum_BJ_SH("上海");
-        Integer startNum = StringToStationNum_BJ_SH(startStation);
-        Integer arriveNum = StringToStationNum_BJ_SH(arriveStation);
-        Integer remanNum = totalStations - arriveNum;
+        //ToDo 此处推广时需要修改
+        Integer totalStations = StringToStationNum_BJ_SH("上海"); //总站数
+        Integer startNum = StringToStationNum_BJ_SH(startStation); // 乘客上车站
+        Integer arriveNum = StringToStationNum_BJ_SH(arriveStation); //乘客下车站
+        Integer remanNum = totalStations - arriveNum; //距离终点站的站数(用于组合正则)
 
         //使用String组合出对应的正则表达式
         String patternStations = "";
@@ -46,12 +49,14 @@ public class TicketServiceImpl implements TicketService{
         }
         patternStations = patternStations + "[01]{" + remanNum.toString() + "}";
 
+        //利用正则遍历车票
         for(int i = 0; i < tickets.size() ;i++){
             boolean isMatch = Pattern.matches(patternStations,tickets.get(i).stations);
             if(isMatch){
                 targetTickets.add(tickets.get(i));
             }
         }
+        //返回符合情况的List
         return targetTickets;
     }
 
