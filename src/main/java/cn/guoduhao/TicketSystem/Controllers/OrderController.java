@@ -20,7 +20,14 @@ public class OrderController {
     @RequestMapping(value = "/purchase")
     public String placeOrder(HttpServletRequest request, Map<String, String> map){
         CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String ticketId = this.orderService.placeOrder(currentUser.getId(), Integer.parseInt(request.getParameter("id")));
+        String depart = request.getParameter("depart");
+        String destination = request.getParameter("destination");
+        String ticketId = this.orderService.placeOrder(
+                currentUser.getId(),
+                Integer.parseInt(request.getParameter("id")),
+                depart,
+                destination
+        );
         map.put("train_id",request.getParameter("id"));
         map.put("ticket_id",ticketId);
         return "purchase";
