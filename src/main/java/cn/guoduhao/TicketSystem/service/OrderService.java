@@ -12,6 +12,7 @@ import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 @Service
@@ -30,21 +31,27 @@ public class OrderService {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    public String placeOrder(String userId, Integer trainId){
+    public String placeOrder(String userId, Integer trainId, String depart, String desination){
         ObjectMapper mapper = new ObjectMapper();
         Ticket ticket = new Ticket();
         Optional<Train> train = trainRepository.findOneById(trainId);
         Optional<User> user = userRepository.findOneById(userId);
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        System.out.println(timestamp.getTime());
+
+
         ticket.id = UUID.randomUUID().toString();
         ticket.name = user.get().getName();
-        ticket.departStation = train.get().departStation;
+        ticket.departStation = depart;//train.get().departStation;
         ticket.departTime = train.get().departTime;
-        ticket.destinationStation = train.get().destinationStation;
+        ticket.destinationStation = desination;//train.get().destinationStation;
         ticket.expense = train.get().expense;
         ticket.seat = this.generateSeatNo();
         ticket.trainNo = train.get().trainNo;
         ticket.trainId = train.get().id;
         ticket.status = 0;
+        ticket.timestamp = timestamp.getTime()/1000;
         ticket.userId = userId;
 
         try{
@@ -95,9 +102,9 @@ public class OrderService {
     private String generateSeatNo(){
         Random random = new Random();
         String alphabet = "ABCDEF";
-        String carriage = Integer.toString(random.nextInt(16));
-        String seat = Integer.toString(random.nextInt(12));
-        Character seatNo = alphabet.charAt(random.nextInt(6));
+        String carriage = Integer.toString(random.nextInt(15)+1);
+        String seat = Integer.toString(random.nextInt(11)+1);
+        Character seatNo = alphabet.charAt(random.nextInt(5)+1);
         return carriage+" - "+seat+seatNo;
     }
 

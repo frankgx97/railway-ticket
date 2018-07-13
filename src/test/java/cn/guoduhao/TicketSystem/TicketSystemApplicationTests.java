@@ -130,6 +130,9 @@ public class TicketSystemApplicationTests {
             System.out.println(tickets.get(0).destinationStation);
             System.out.println(tickets.get(0).stations);
         }
+        else{
+            System.out.println("Empty!");
+        }
 
         //查得到
         tickets = ticketService.searchRemanentTicket_BJ_SH("徐州","上海");
@@ -138,6 +141,9 @@ public class TicketSystemApplicationTests {
             System.out.println(tickets.get(0).destinationStation);
             System.out.println(tickets.get(0).stations);
         }
+        else{
+            System.out.println("Empty!");
+        }
 
         //查得到
         tickets = ticketService.searchRemanentTicket_BJ_SH("徐州","镇江");
@@ -145,6 +151,9 @@ public class TicketSystemApplicationTests {
             System.out.println(tickets.get(0).departStation);
             System.out.println(tickets.get(0).destinationStation);
             System.out.println(tickets.get(0).stations);
+        }
+        else{
+            System.out.println("Empty!");
         }
     }
 
@@ -155,8 +164,8 @@ public class TicketSystemApplicationTests {
         ticket.name = "郭琦";
         ticket.orderId = "G1SC02SE23DA20180711TI135500";
         ticket.departTime = "2018-07-11-13:55:00";
-        ticket.departStation = "徐州";
-        ticket.destinationStation = "镇江";
+        ticket.departStation = "镇江";
+        ticket.destinationStation = "苏州";
         ticket.expense = 355;
         ticket.status = 1;
         ticket.userId ="3728";

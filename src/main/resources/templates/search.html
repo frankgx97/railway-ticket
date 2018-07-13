@@ -7,11 +7,13 @@
 
 <br><br><br>
 <div class="container">
+    <p>您查询的信息：</p>
+    <p>出发地：<span th:text="${depart}"></span> &nbsp; 目的地：<span th:text="${destination}"></span></p>
     <table class="table">
         <tr>
             <th>车次</th>
-            <th>出发地</th>
-            <th>目的地</th>
+            <th>始发站</th>
+            <th>终到站</th>
             <th>出发时间</th>
             <th>剩余座位</th>
             <th>票价</th>
@@ -27,7 +29,7 @@
             <td th:text=${train.seatsTotal-train.seatsSold}></td>
             <td th:text=${train.expense}></td>
             <td>
-                <a th:href="@{/purchase?id=} + ${train.id}"><input type="button" class="btn btn-primary btn-sm" name="buy" id="buy" value="购票" /></a>
+                <a th:href="@{/purchase(id=${train.id},depart=${depart},destination=${destination})}"><input type="button" class="btn btn-primary btn-sm" name="buy" id="buy" value="购票" /></a>
             </td>
         </tr>
         </div>
