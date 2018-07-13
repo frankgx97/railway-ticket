@@ -12,6 +12,7 @@ import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 @Service
@@ -35,6 +36,11 @@ public class OrderService {
         Ticket ticket = new Ticket();
         Optional<Train> train = trainRepository.findOneById(trainId);
         Optional<User> user = userRepository.findOneById(userId);
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        System.out.println(timestamp.getTime());
+
+
         ticket.id = UUID.randomUUID().toString();
         ticket.name = user.get().getName();
         ticket.departStation = train.get().departStation;
@@ -45,6 +51,7 @@ public class OrderService {
         ticket.trainNo = train.get().trainNo;
         ticket.trainId = train.get().id;
         ticket.status = 0;
+        ticket.timestamp = timestamp.getTime();
         ticket.userId = userId;
 
         try{
