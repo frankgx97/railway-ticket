@@ -102,9 +102,9 @@ public class OrderService {
     private String generateSeatNo(){
         Random random = new Random();
         String alphabet = "ABCDEF";
-        String carriage = Integer.toString(random.nextInt(16));
-        String seat = Integer.toString(random.nextInt(12));
-        Character seatNo = alphabet.charAt(random.nextInt(6));
+        String carriage = Integer.toString(random.nextInt(15)+1);
+        String seat = Integer.toString(random.nextInt(11)+1);
+        Character seatNo = alphabet.charAt(random.nextInt(5)+1);
         return carriage+" - "+seat+seatNo;
     }
 
