@@ -30,6 +30,21 @@ public class TicketServiceImpl implements TicketService{
     }
 
     @Override
+    public String mapToTrainNo_BJ_SH(String departStation,String destinationStation){
+        //调入StringToStationNum_BJ_SH的映射函数
+        //判定其值是否为-1 若是则证明相应站点不在映射内
+        Integer departNum = StringToStationNum_BJ_SH(departStation);
+        Integer destinationNum = StringToStationNum_BJ_SH(destinationStation);
+        if(departNum == -1 || destinationNum == -1){
+            return "";
+        }
+        else{
+            return "G1";
+        }
+
+    }
+
+    @Override
     public Optional<Ticket> getTicketByUserId(String userId){
         return this.ticketRepository.findOneByUserId(userId);
     }
@@ -43,7 +58,7 @@ public class TicketServiceImpl implements TicketService{
         }
         else{//否则，从全程票中查看是否有空闲票
             //ToDo 需要更改 进入NoSQL中查询含有顾客上车和下车站的trainNo, 再根据TrainNo检索
-            List<Train> trains =
+            List<Train> trains = //注意这里是 trainRepo 不是 ticketRepo
                 trainRepository.findByDepartStationAndDestinationStation("北京","上海");
             Integer remanentTickets = trains.get(0).seatsTotal - trains.get(0).seatsSold;
             if(remanentTickets > 0){//若全程票中有空闲票
