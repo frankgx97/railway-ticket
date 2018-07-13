@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
@@ -25,14 +21,10 @@
     <![endif]-->
 </head>
 <body class="style-2">
-<br/>
-    <br/>
     <div th:text="${error}">这里是信息提示.</div>
-    <br/>
     <div th:errors="${form.email}"></div>
     <div th:errors="${form.name}"></div>
     <div th:errors="${form.password}"></div>
-<br/>
 <div class="container">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
@@ -61,7 +53,7 @@
                     <label for="remember"><input type="checkbox" id="remember"> 记住我</label>
                 </div>
                 <div class="form-group">
-                    <p>已经注册？<a href="login.html">登录</a></p>
+                    <p>已经注册？<a href="/login">登录</a></p>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="注册" class="btn btn-primary">
@@ -69,6 +61,7 @@
             </form>
         </div>
     </div>
+</div>
 
 
     <!-- END Sign In Form -->
