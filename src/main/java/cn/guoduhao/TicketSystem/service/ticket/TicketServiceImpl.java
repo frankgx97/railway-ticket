@@ -105,7 +105,8 @@ public class TicketServiceImpl implements TicketService{
                 //当选购票后，票的stations字段全部变为"1" 说明已经凑出了一张全程票
                 if (newStations.equals(modifyStations("北京","上海",""))){
                     //找到原来半程票对应的trainNo
-                    Optional<Train> train = trainRepository.findOneByTrainNo(targetTickets.get(0).trainNo);
+                    //Optional<Train> train = trainRepository.findOneByTrainNo(targetTickets.get(0).trainNo);
+                    Optional<Train> train = trainRepository.findOneById(targetTickets.get(0).trainId);
                     if(train.isPresent()){
                         train.get().seatsSold += 1; //trainNo对应的seatsSold + 1
                         trainRepository.save(train.get()); //更新Train表，改变剩余票数
