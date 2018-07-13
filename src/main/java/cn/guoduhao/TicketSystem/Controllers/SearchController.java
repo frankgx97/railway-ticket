@@ -10,7 +10,6 @@ import cn.guoduhao.TicketSystem.service.ticket.TicketServiceImpl;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Controller
 public class SearchController {

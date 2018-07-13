@@ -8,7 +8,30 @@
 <div th:include="components/header :: header"></div>
 <br><br><br>
 <div class="container">
-    <h3 align="center">正在处理订单，请稍候...</h3>
+    <h5 align="center">您的订单信息</h5>
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <th scope="row">车次</th>
+            <td th:text="${train.trainNo}"></td>
+        </tr>
+        <tr>
+            <th scope="row">出发地</th>
+            <td th:text="${depart}"></td>
+        </tr>
+        <tr>
+            <th scope="row">目的地</th>
+            <td th:text="${destination}"></td>
+        </tr>
+        <tr>
+            <th scope="row">发车时间</th>
+            <td th:text="${train.departTime}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+
+    <p align="center">正在处理订单，请稍候...</p>
     <br>
     <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated bg-success " role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>

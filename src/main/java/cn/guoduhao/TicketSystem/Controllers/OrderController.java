@@ -1,6 +1,8 @@
 package cn.guoduhao.TicketSystem.Controllers;
 
 import cn.guoduhao.TicketSystem.Models.CurrentUser;
+import cn.guoduhao.TicketSystem.Models.Train;
+import cn.guoduhao.TicketSystem.repository.TrainRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class OrderController {
@@ -17,8 +20,11 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
+    @Autowired
+    TrainRepository trainRepository;
+
     @RequestMapping(value = "/purchase")
-    public String placeOrder(HttpServletRequest request, Map<String, String> map){
+    public String placeOrder(HttpServletRequest request, Map<String, String> map, Map<String, Train> trainMap){
         CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String depart = request.getParameter("depart");
         String destination = request.getParameter("destination");
@@ -28,8 +34,14 @@ public class OrderController {
                 depart,
                 destination
         );
+        Optional<Train> train = trainRepository.findOneById(Integer.parseInt(request.getParameter("id")));
+
+        trainMap.put("train", train.get());
+
         map.put("train_id",request.getParameter("id"));
         map.put("ticket_id",ticketId);
+        map.put("depart", depart);
+        map.put("destination", destination);
         return "purchase";
     }
 
