@@ -51,7 +51,7 @@ public class OrderService {
         ticket.trainNo = train.get().trainNo;
         ticket.trainId = train.get().id;
         ticket.status = 0;
-        ticket.timestamp = timestamp.getTime();
+        ticket.timestamp = timestamp.getTime()/1000;
         ticket.userId = userId;
 
         try{
