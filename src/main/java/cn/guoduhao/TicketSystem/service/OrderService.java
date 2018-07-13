@@ -31,7 +31,7 @@ public class OrderService {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    public String placeOrder(String userId, Integer trainId){
+    public String placeOrder(String userId, Integer trainId, String depart, String desination){
         ObjectMapper mapper = new ObjectMapper();
         Ticket ticket = new Ticket();
         Optional<Train> train = trainRepository.findOneById(trainId);
@@ -43,9 +43,9 @@ public class OrderService {
 
         ticket.id = UUID.randomUUID().toString();
         ticket.name = user.get().getName();
-        ticket.departStation = train.get().departStation;
+        ticket.departStation = depart;//train.get().departStation;
         ticket.departTime = train.get().departTime;
-        ticket.destinationStation = train.get().destinationStation;
+        ticket.destinationStation = desination;//train.get().destinationStation;
         ticket.expense = train.get().expense;
         ticket.seat = this.generateSeatNo();
         ticket.trainNo = train.get().trainNo;

@@ -27,7 +27,7 @@
             <td th:text=${train.seatsTotal-train.seatsSold}></td>
             <td th:text=${train.expense}></td>
             <td>
-                <a th:href="@{/purchase?id=} + ${train.id}"><input type="button" class="btn btn-primary btn-sm" name="buy" id="buy" value="购票" /></a>
+                <a th:href="@{/purchase(id=${train.id},depart=${depart},destination=${destination})}"><input type="button" class="btn btn-primary btn-sm" name="buy" id="buy" value="购票" /></a>
             </td>
         </tr>
         </div>

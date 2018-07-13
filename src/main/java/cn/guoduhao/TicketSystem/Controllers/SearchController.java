@@ -22,7 +22,7 @@ public class SearchController {
     TicketServiceImpl ticketServiceImpl;
 
     @RequestMapping("/search")
-    public String index(HttpServletRequest request, Map<String, List<Train>> map){
+    public String index(HttpServletRequest request, Map<String, List<Train>> map, Map<String, String> stationMap){
         /*
         List<Train> result = trainRepository.findByDepartStationAndDestinationStation(
                 request.getParameter("depart-station"),
@@ -30,14 +30,18 @@ public class SearchController {
                 request.getParameter("destination-station")
         );
         */
+        String depart = request.getParameter("depart-station");
+        String destination = request.getParameter("destination-station");
 
         String trainNo = ticketServiceImpl.mapToTrainNo_BJ_SH(
-                request.getParameter("depart-station"),
-                request.getParameter("destination-station")
+                depart,
+                destination
         );
 
         List<Train> result = trainRepository.findOneByTrainNo(trainNo);
         map.put("trains", result);
+        stationMap.put("depart", depart);
+        stationMap.put("destination", destination);
         return "search";
     }
 }
