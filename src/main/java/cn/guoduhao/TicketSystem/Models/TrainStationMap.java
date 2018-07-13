@@ -6,8 +6,6 @@ import javax.persistence.*;
 import java.util.List;
 
 
-@Entity
-@Table
 public class TrainStationMap {
     @Id
     @GeneratedValue(generator="system-uuid", strategy= GenerationType.AUTO)
