@@ -1,0 +1,8 @@
+version: '3'
+services:
+    ticketsystem:
+        container_name: "ticketsystem"
+        image: "registry.guoduhao.cn:9000/ticketsystem"
+        ports:
+         - "8080:8080"
+        restart: always
