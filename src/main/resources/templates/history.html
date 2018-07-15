@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<div th:include="components/head :: head"></div>
+<!-- Custom styles for this template -->
+<link href="assets/css/carousel.css" rel="stylesheet">
+<title>铁路售票 - 我的历史订单</title>
+<body>
+<div th:include="components/header :: header"></div>
+
+<br><br><br>
+<div class="container">
+    <h1 th:inline="text">欢迎，[[${#httpServletRequest.remoteUser}]]!</h1>
+    <br>
+    <h3>我的历史订单</h3>
+    <table class="table">
+        <tr>
+            <th>姓名</th>
+            <th>车次</th>
+            <th>出发地</th>
+            <th>目的地</th>
+            <th>出发时间</th>
+            <th>座位号</th>
+            <th>票价</th>
+        </tr>
+
+        <div th:each="ticket,iterStat : ${ticketList}">
+            <tr>
+                <td th:text=${ticket.name}></td>
+                <td th:text=${ticket.trainNo}></td>
+                <td th:text=${ticket.departStation}></td>
+                <td th:text=${ticket.destinationStation}></td>
+                <td th:text=${ticket.departTime}></td>
+                <td th:text=${ticket.seat}></td>
+                <td th:text=${ticket.expense}></td>
+            </tr>
+        </div>
+    </table>
+    <button onclick="location.href='/home'" type="button" class="btn btn-info">返回</button>
+    <hr>
+    <form th:action="@{/logout}" method="post">
+        <button class="btn btn-success" type="submit">退出登录</button>
+    </form>
+</div>
+</body>
+</html>
