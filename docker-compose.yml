@@ -1,13 +1,13 @@
 version: '3'
 services:
     ticketsystem8080:
-        container_name: "ticketsystem"
+        container_name: "ticketsystem8080"
         image: "registry.guoduhao.cn:9000/ticketsystem"
         ports:
          - "8080:8080"
         restart: always
     ticketsystem8081:
-        container_name: "ticketsystem"
+        container_name: "ticketsystem8081"
         image: "registry.guoduhao.cn:9000/ticketsystem"
         ports:
          - "8081:8080"
