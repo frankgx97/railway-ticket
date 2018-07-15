@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface TrainRepository extends JpaRepository<Train, Long> {
     List<Train> findOneByTrainNo(String trainNo);
     Optional<Train> findOneById(Integer id);
-    List<Train> findByDepartStationAndDestinationStationAndDepartTime(String departStation, String destinationStation, String departTime);
+    //List<Train> findByDepartStationAndDestinationStationAndDepartTime(String departStation, String destinationStation, String departTime);
     List<Train> findByDepartStationAndDestinationStation(String departStation, String destinationStation);
+    List<Train> findByDepartStationAndDestinationStationAndDepartTimeContaining(String departStation, String destinationStation, String departTime);
 }
