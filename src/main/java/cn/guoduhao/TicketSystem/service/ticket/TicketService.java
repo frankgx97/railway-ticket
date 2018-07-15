@@ -18,7 +18,7 @@ public interface TicketService {
     Integer buyTicket_BJ_SH(Ticket newTicket);
 
     //若能够映射到BJ_SH的列车 则返回"G1";否则返回""
-    String mapToTrainNo_BJ_SH(String departStation,String destinationStation);
+    List<String> mapToTrainNo_BJ_SH(String departStation,String destinationStation);
 
 
 

@@ -8,6 +8,7 @@ import cn.guoduhao.TicketSystem.repository.TrainRepository;
 import cn.guoduhao.TicketSystem.service.ticket.TicketServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,12 +33,21 @@ public class SearchController {
         String depart = request.getParameter("depart-station");
         String destination = request.getParameter("destination-station");
 
-        String trainNo = ticketServiceImpl.mapToTrainNo_BJ_SH(
+        //TODO 完成后更改BJSH
+        List<String> trainList = ticketServiceImpl.mapToTrainNo_BJ_SH(
                 depart,
                 destination
         );
 
-        List<Train> result = trainRepository.findOneByTrainNo(trainNo);
+        List<Train> result = new ArrayList<>();
+
+        for(int i=0;i<trainList.size();i++){
+            List<Train> trainListTemp = trainRepository.findByTrainNo(trainList.get(i));
+            for(int j=0;j<trainListTemp.size();j++){
+                result.add(trainListTemp.get(j));
+            }
+        }
+
         map.put("trains", result);
         stationMap.put("depart", depart);
         stationMap.put("destination", destination);

@@ -31,16 +31,18 @@ public class TicketServiceImpl implements TicketService{
 
     @Override
     //若能够映射到BJ_SH的列车 则返回"G1";否则返回""
-    public String mapToTrainNo_BJ_SH(String departStation,String destinationStation){
+    public List<String> mapToTrainNo_BJ_SH(String departStation,String destinationStation){
         //调入StringToStationNum_BJ_SH的映射函数
         //判定其值是否为-1 若是则证明相应站点不在映射内
         Integer departNum = StringToStationNum_BJ_SH(departStation);
         Integer destinationNum = StringToStationNum_BJ_SH(destinationStation);
+        List<String> resultList = new ArrayList<>();
         if(departNum == -1 || destinationNum == -1){
-            return "";
+            return resultList;
         }
         else{
-            return "G1";
+            resultList.add("G1");
+            return resultList;
         }
 
     }
