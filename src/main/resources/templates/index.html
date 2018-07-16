@@ -27,9 +27,14 @@
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <label for="depart-station">出发地</label>
-                                    <select class="form-control" id="depart-station" name="depart-station">
+                                    <input type="text" class="form-control" id="depart-station" name="depart-station" list="depart-station-list" value="北京">
+                                    <datalist id="depart-station-list" name="depart-station-list">
                                         <option>北京</option>
+                                        <option>上海</option>
                                         <option>天津西</option>
+                                        <option>武汉</option>
+                                        <option>郑州东</option>
+                                        <option>石家庄</option>
                                         <option>沧州</option>
                                         <option>德州</option>
                                         <option>徐州</option>
@@ -38,17 +43,22 @@
                                         <option>常州</option>
                                         <option>无锡</option>
                                         <option>苏州</option>
-                                        <option>上海</option>
-                                    </select>
+                                    </datalist>
+
                                 </div><!--/.col-->
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <label for="destination-station">目的地</label>
-                                    <select class="form-control" id="destination-station" name="destination-station">
+                                    <input type="text" class="form-control" id="destination-station" name="destination-station" list="destination-station-list" value="上海">
+                                    <datalist  id="destination-station-list" name="destination-station-list">
                                         <option>北京</option>
+                                        <option>上海</option>
                                         <option>天津西</option>
+                                        <option>武汉</option>
+                                        <option>郑州东</option>
+                                        <option>石家庄</option>
                                         <option>沧州</option>
                                         <option>德州</option>
                                         <option>徐州</option>
@@ -58,7 +68,7 @@
                                         <option>无锡</option>
                                         <option>苏州</option>
                                         <option selected="selected">上海</option>
-                                    </select>
+                                    </datalist>
                                 </div><!--/.col-->
                             </div>
                             <br>
