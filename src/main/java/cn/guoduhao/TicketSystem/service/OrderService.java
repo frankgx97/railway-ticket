@@ -2,11 +2,15 @@ package cn.guoduhao.TicketSystem.service;
 
 import cn.guoduhao.TicketSystem.Models.Ticket;
 import cn.guoduhao.TicketSystem.Models.Train;
+import cn.guoduhao.TicketSystem.Models.TrainStationMap;
 import cn.guoduhao.TicketSystem.Models.User;
 import cn.guoduhao.TicketSystem.repository.TrainRepository;
 import cn.guoduhao.TicketSystem.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.core.JmsMessagingTemplate;
@@ -30,6 +34,9 @@ public class OrderService {
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     public String placeOrder(String userId, Integer trainId, String depart, String desination){
         ObjectMapper mapper = new ObjectMapper();
@@ -106,6 +113,31 @@ public class OrderService {
         String seat = Integer.toString(random.nextInt(11)+1);
         Character seatNo = alphabet.charAt(random.nextInt(5)+1);
         return carriage+" - "+seat+seatNo;
+    }
+
+    //车站信息的相关操作
+    //query使用Criteria.where("stations").is("北京")这种格式制定键值对，在上层函数中使用
+    //返回一个TrainStationMap对象
+    private TrainStationMap findOne(Query query, String collectionName){
+        return mongoTemplate.findOne(query,TrainStationMap.class,collectionName);
+    }
+
+    // 返回一个List<TrainStationMap>
+    private List<TrainStationMap> find(Query query,String collectionName){
+        return mongoTemplate.find(query,TrainStationMap.class,collectionName);
+    }
+
+
+    public List<TrainStationMap> findAllByDepartStaitonAndDestinationStation(String departStation,String destinationStation){
+        Query query = new Query();
+        query.addCriteria(
+                Criteria.where("stations").exists(true).andOperator(
+                    Criteria.where("stations").is(departStation),
+                       Criteria.where("stations").is(destinationStation)
+                )
+        );
+        //System.out.println("query - " + query.toString());
+        return this.find(query,"Stations"); //mongoDB中的Collation名称
     }
 
 }
