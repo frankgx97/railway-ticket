@@ -21,4 +21,7 @@ public interface TicketService {
     List<String> mapToTrainNo_BJ_SH(String departStation,String destinationStation);
 
     List<String> mapToTrainNo(String departStation,String destinationStation);
+
+    //票价算法
+    float countFee(String departStation,String destinationStation,String trainNo);
 }

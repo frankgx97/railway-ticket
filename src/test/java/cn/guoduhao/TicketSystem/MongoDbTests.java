@@ -172,4 +172,20 @@ public class MongoDbTests {
         System.out.println(ticketServiceImpl.mapToTrainNo("北京","乌鲁木齐").get(0));
     }
 
+    @Test
+    @Bean
+    public void mongoDbExpenseTest(){
+        //预期:相应价格
+        System.out.println(ticketServiceImpl.countFee("北京","邯郸东","G2"));
+
+        //预期:相应价格
+        System.out.println(ticketServiceImpl.countFee("北京","德州","G1"));
+
+        //预期:-1
+        System.out.println(ticketServiceImpl.countFee("北京","德州","G2"));
+
+        //预期:-1
+        System.out.println(ticketServiceImpl.countFee("北京","德州","G88"));
+    }
+
 }

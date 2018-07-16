@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.*;
 
+import static java.lang.Math.abs;
+
 @Service
 public class TicketServiceImpl implements TicketService{
 
@@ -32,6 +34,29 @@ public class TicketServiceImpl implements TicketService{
         this.ticketRepository = ITicketRepository;
         this.trainRepository = ITrainRepository;
         this.orderService = IOrderService;
+    }
+
+    @Override //票价算法
+    public float countFee(String departStation,String destinationStation,String trainNo){
+        List<Train> targetTrain = trainRepository.findByTrainNo(trainNo);
+        if(targetTrain.isEmpty()){
+            return -1;
+        }
+        else{
+            Integer totalExpense = targetTrain.get(0).expense - 126;
+            System.out.println(totalExpense);
+            TrainStationMap stationInfo = orderService.findOneByTrainNo(trainNo);
+            Integer totalStaitonAmount = stationInfo.stations.size();
+            Integer departNum = orderService.stationNameToInteger(departStation,trainNo);
+            Integer destinationNum = orderService.stationNameToInteger(destinationStation,trainNo);
+            if(departNum == -1 || destinationNum == -1){
+                return -1;
+            }
+            else {
+                float partitionStationAmount = abs(destinationNum - departNum);
+                return (208 + (partitionStationAmount/totalStaitonAmount)*totalExpense );
+            }
+        }
     }
 
     @Override
