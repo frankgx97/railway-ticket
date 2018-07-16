@@ -33,22 +33,22 @@ public class MongoDbTests {
     @Autowired
     OrderService orderService;
 
-    @Test
-    public void mongoDbWriteTest(){
-        Ticket ticket = new Ticket();
-        ticket.id = UUID.randomUUID().toString();
-        ticket.trainNo = "G1";
-        ticket.departStation = "北京";
-        ticket.destinationStation = "上海";
-        ticket.departTime = "2018-09-01-11:00:00";
-        ticket.expense = 0;
-        ticket.name = "test";
-        ticket.orderId = "00000001";
-        ticket.seat = "A1";
-        ticket.status = 0;
-        ticket.userId = "4028abda64709466016470952b6b0000";
-        ticketMongoRepository.save(ticket);
-    }
+//    @Test
+//    public void mongoDbWriteTest(){
+//        Ticket ticket = new Ticket();
+//        ticket.id = UUID.randomUUID().toString();
+//        ticket.trainNo = "G1";
+//        ticket.departStation = "北京";
+//        ticket.destinationStation = "上海";
+//        ticket.departTime = "2018-09-01-11:00:00";
+//        ticket.expense = 0;
+//        ticket.name = "test";
+//        ticket.orderId = "00000001";
+//        ticket.seat = "A1";
+//        ticket.status = 0;
+//        ticket.userId = "4028abda64709466016470952b6b0000";
+//        ticketMongoRepository.save(ticket);
+//    }
 
 //    @Test
 //    @Bean
@@ -75,7 +75,7 @@ public class MongoDbTests {
                 orderService.findAllByDepartStaitonAndDestinationStation("天津西","苏州");
         System.out.println(stationInfos.size());
 
-        //预期: 1
+        //预期: 2
         stationInfos =
                 orderService.findAllByDepartStaitonAndDestinationStation("北京","武汉");
         System.out.println(stationInfos.size());
@@ -132,6 +132,9 @@ public class MongoDbTests {
         //预期: 10个0组成的String
         System.out.println(ticketServiceImpl.createStations("G2"));
 
+        //预期: 9个0组成的String
+        System.out.println(ticketServiceImpl.createStations("G507"));
+
         //预期: ""
         System.out.println(ticketServiceImpl.createStations("G9999"));
     }
@@ -145,6 +148,9 @@ public class MongoDbTests {
         //预期: 10个1组成的String
         System.out.println(ticketServiceImpl.modifyStations("北京","武汉","G2"));
 
+        //预期: 9个1组成的String
+        System.out.println(ticketServiceImpl.modifyStations("北京","武汉","G507"));
+
         //预期: ""
         System.out.println(ticketServiceImpl.modifyStations("北京","乌鲁木齐","G999"));
     }
@@ -157,6 +163,10 @@ public class MongoDbTests {
 
         //预期: G2
         System.out.println(ticketServiceImpl.mapToTrainNo("石家庄","郑州东").get(0));
+
+        //预期: G2
+        System.out.println(ticketServiceImpl.mapToTrainNo("北京","武汉").get(0));
+        System.out.println(ticketServiceImpl.mapToTrainNo("北京","武汉").get(1));
 
         //预期: ""
         System.out.println(ticketServiceImpl.mapToTrainNo("北京","乌鲁木齐").get(0));
