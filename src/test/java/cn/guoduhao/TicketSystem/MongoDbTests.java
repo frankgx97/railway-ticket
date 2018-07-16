@@ -5,6 +5,7 @@ import cn.guoduhao.TicketSystem.Models.TrainStationMap;
 import cn.guoduhao.TicketSystem.repository.MongoDbRepositories.TicketMongoRepository;
 import cn.guoduhao.TicketSystem.repository.MongoDbRepositories.TrainMongoRepository;
 import cn.guoduhao.TicketSystem.service.OrderService;
+import cn.guoduhao.TicketSystem.service.ticket.TicketServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class MongoDbTests {
 
     @Autowired
     TicketMongoRepository ticketMongoRepository;
+
+    @Autowired
+    TicketServiceImpl ticketServiceImpl;
 
     @Autowired
     OrderService orderService;
@@ -66,10 +70,96 @@ public class MongoDbTests {
     @Test
     @Bean
     public void mongoDbSearchAllTest(){
+        //预期: 1
         List<TrainStationMap> stationInfos =
                 orderService.findAllByDepartStaitonAndDestinationStation("天津西","苏州");
         System.out.println(stationInfos.size());
+
+        //预期: 1
+        stationInfos =
+                orderService.findAllByDepartStaitonAndDestinationStation("北京","武汉");
+        System.out.println(stationInfos.size());
+
+        //预期: 0
+        stationInfos =
+                orderService.findAllByDepartStaitonAndDestinationStation("天津西","武汉");
+        System.out.println(stationInfos.size());
+
+        //预期: 0
+        stationInfos =
+                orderService.findAllByDepartStaitonAndDestinationStation("天津","苏州");
+        System.out.println(stationInfos.size());
     }
 
+    @Test
+    @Bean
+    public void mongoDbSearchAllByTrainNoTest(){
+        //预期: G1,站信息的Array
+        TrainStationMap trainStationInfo = orderService.findOneByTrainNo("G1");
+        System.out.println(trainStationInfo.trainNo);
+        System.out.println(trainStationInfo.stations);
+    }
+
+    @Test
+    @Bean
+    public void mongoDbSearchAllByTrainNoTest2(){
+        //预期: G1,站信息的Array
+        TrainStationMap trainStationInfo = orderService.findOneByTrainNo("G1");
+        System.out.println(trainStationInfo.trainNo);
+        System.out.println(trainStationInfo.stations.size());
+        System.out.println(trainStationInfo.stations);
+        System.out.println(trainStationInfo.stations.get(0));
+    }
+
+    @Test
+    @Bean
+    public void mongoDbSearchAllByTrainNoTest3(){
+        //预期: 0
+        Integer stationIndex= orderService.stationNameToInteger("北京","G1");
+        System.out.println(stationIndex);
+
+        //预期: -1 (线路不存在相应站点则返回-1)
+        Integer stationIndex2= orderService.stationNameToInteger("乌鲁木齐","G1");
+        System.out.println(stationIndex2);
+    }
+
+    @Test
+    @Bean
+    public void mongoDbcreateStationTest(){
+        //预期: 10个0组成的String
+        System.out.println(ticketServiceImpl.createStations("G1"));
+
+        //预期: 10个0组成的String
+        System.out.println(ticketServiceImpl.createStations("G2"));
+
+        //预期: ""
+        System.out.println(ticketServiceImpl.createStations("G9999"));
+    }
+
+    @Test
+    @Bean
+    public void mongoDbStationsTest1(){
+        //预期: 10个0或1组成的String，反映出相应站关系
+        System.out.println(ticketServiceImpl.modifyStations("德州","徐州","G1"));
+
+        //预期: 10个1组成的String
+        System.out.println(ticketServiceImpl.modifyStations("北京","武汉","G2"));
+
+        //预期: ""
+        System.out.println(ticketServiceImpl.modifyStations("北京","乌鲁木齐","G999"));
+    }
+
+    @Test
+    @Bean
+    public void mongoDbStationsTest2(){
+        //预期: G1
+        System.out.println(ticketServiceImpl.mapToTrainNo("德州","徐州").get(0));
+
+        //预期: G2
+        System.out.println(ticketServiceImpl.mapToTrainNo("石家庄","郑州东").get(0));
+
+        //预期: ""
+        System.out.println(ticketServiceImpl.mapToTrainNo("北京","乌鲁木齐").get(0));
+    }
 
 }

@@ -12,7 +12,7 @@ public class TrainStationMap {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     public String id ;
     public String trainNo;
-    public List<String> stationsInfo ;
+    public List<String> stations ;
 
     public TrainStationMap(){};
 

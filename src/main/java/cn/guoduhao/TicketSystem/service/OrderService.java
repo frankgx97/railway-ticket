@@ -127,7 +127,7 @@ public class OrderService {
         return mongoTemplate.find(query,TrainStationMap.class,collectionName);
     }
 
-
+    //输入上车站和下车站，返回trainNo
     public List<TrainStationMap> findAllByDepartStaitonAndDestinationStation(String departStation,String destinationStation){
         Query query = new Query();
         query.addCriteria(
@@ -138,6 +138,23 @@ public class OrderService {
         );
         //System.out.println("query - " + query.toString());
         return this.find(query,"Stations"); //mongoDB中的Collation名称
+    }
+
+    //输入trainNo返回相应的车站信息对象
+    public TrainStationMap findOneByTrainNo(String trainNo){
+        Query query = new Query(Criteria.where("trainNo").is(trainNo));
+        return this.findOne(query,"Stations");
+    }
+
+    //输入站名和trainNo,返回此站名对应的index
+    public Integer stationNameToInteger(String stationName , String trainNo){
+        TrainStationMap stationInfo = this.findOneByTrainNo(trainNo);
+        if(stationInfo != null){
+            return stationInfo.stations.indexOf(stationName);
+        }
+        else{
+            return -1;
+        }
     }
 
 }
