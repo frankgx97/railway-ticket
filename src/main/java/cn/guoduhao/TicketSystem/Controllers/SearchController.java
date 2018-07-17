@@ -1,11 +1,11 @@
 package cn.guoduhao.TicketSystem.Controllers;
 
 import cn.guoduhao.TicketSystem.Models.Train;
+import cn.guoduhao.TicketSystem.service.ticket.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import cn.guoduhao.TicketSystem.repository.TrainRepository;
-import cn.guoduhao.TicketSystem.service.ticket.TicketServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class SearchController {
     TrainRepository trainRepository;
 
     @Autowired
-    TicketServiceImpl ticketServiceImpl;
+    TicketService ticketService;
 
     @RequestMapping("/search")
     public String index(HttpServletRequest request, Map<String, List<Train>> map, Map<String, String> stationMap){
@@ -34,7 +34,7 @@ public class SearchController {
         String destination = request.getParameter("destination-station");
 
         //TODO 完成后更改BJSH
-        List<String> trainList = ticketServiceImpl.mapToTrainNo_BJ_SH(
+        List<String> trainList = ticketService.mapToTrainNo(
                 depart,
                 destination
         );
@@ -44,6 +44,7 @@ public class SearchController {
         for(int i=0;i<trainList.size();i++){
             List<Train> trainListTemp = trainRepository.findByTrainNo(trainList.get(i));
             for(int j=0;j<trainListTemp.size();j++){
+                trainListTemp.get(j).expense = Math.round(this.ticketService.countFee(depart, destination, trainListTemp.get(j).trainNo));
                 result.add(trainListTemp.get(j));
             }
         }

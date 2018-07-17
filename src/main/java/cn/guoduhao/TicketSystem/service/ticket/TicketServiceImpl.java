@@ -62,11 +62,6 @@ public class TicketServiceImpl implements TicketService{
         }
     }
 
-    @Override
-    //若能够映射到相应trainNo列车 则返回相应trainNo;否则返回""
-    public List<String> mapToTrainNo_BJ_SH(String departStation,String destinationStation){
-        return this.mapToTrainNo(departStation,destinationStation);
-    }
 
     //若能够映射到相应trainNo列车 则返回相应trainNo;否则返回""
     @Override
