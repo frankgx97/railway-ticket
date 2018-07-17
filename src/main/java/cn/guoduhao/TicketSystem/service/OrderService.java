@@ -60,6 +60,8 @@ public class OrderService {
         ticket.status = 0;
         ticket.timestamp = timestamp.getTime()/1000;
         ticket.userId = userId;
+        ticket.orderId = "0";
+        ticket.version = "0";
 
         try{
             String orderJson = mapper.writeValueAsString(ticket);
