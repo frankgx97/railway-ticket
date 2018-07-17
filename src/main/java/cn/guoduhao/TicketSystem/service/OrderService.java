@@ -110,7 +110,7 @@ public class OrderService {
         Random random = new Random();
         String alphabet = "ABCDEF";
         String carriage = Integer.toString(random.nextInt(15)+1);
-        String seat = Integer.toString(random.nextInt(11)+1);
+        String seat = Integer.toString(random.nextInt(19)+1);
         Character seatNo = alphabet.charAt(random.nextInt(5)+1);
         return carriage+" - "+seat+seatNo;
     }
