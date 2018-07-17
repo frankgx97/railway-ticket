@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.naming.directory.SearchResult;
 import javax.persistence.criteria.CriteriaBuilder;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -53,8 +54,10 @@ public class TicketServiceImpl implements TicketService{
                 return -1;
             }
             else {
+                DecimalFormat df = new DecimalFormat("#.00");
                 float partitionStationAmount = abs(destinationNum - departNum);
-                return (208 + (partitionStationAmount/totalStaitonAmount)*totalExpense );
+                String format = df.format((208 + (partitionStationAmount/totalStaitonAmount)*totalExpense ));
+                return Float.valueOf(format);
             }
         }
     }
