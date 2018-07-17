@@ -2,6 +2,7 @@ package cn.guoduhao.TicketSystem;
 
 import cn.guoduhao.TicketSystem.Models.Ticket;
 import cn.guoduhao.TicketSystem.repository.TicketRepository;
+import cn.guoduhao.TicketSystem.repository.TrainRepository;
 import cn.guoduhao.TicketSystem.service.ticket.TicketService;
 import cn.guoduhao.TicketSystem.service.ticket.TicketServiceImpl;
 import io.lettuce.core.dynamic.annotation.Param;
@@ -25,6 +26,8 @@ public class TicketSystemApplicationTests {
 	TicketRepository ticketRepository;
 	@Autowired
 	TicketService ticketService;
+	@Autowired
+    TrainRepository trainRepository;
 
 	@Test
 	@Bean
@@ -116,59 +119,110 @@ public class TicketSystemApplicationTests {
         }
     }
 
-    @Test
-    @Bean
-    public void TicketSearch(){
-        List<Ticket> tickets =
-                ticketService.searchRemanentTicket_BJ_SH("德州","上海");
-        //查不到
-        if(!tickets.isEmpty()) {
-            System.out.println(tickets.get(0).departStation);
-            System.out.println(tickets.get(0).destinationStation);
-            System.out.println(tickets.get(0).stations);
-        }
+////    @Test
+////    @Bean
+////    public void TicketSearch(){
+////        List<Ticket> tickets =
+////                ticketService.searchRemanentTicket_BJ_SH("德州","上海");
+////        //查不到
+////        if(!tickets.isEmpty()) {
+////            System.out.println(tickets.get(0).departStation);
+////            System.out.println(tickets.get(0).destinationStation);
+////            System.out.println(tickets.get(0).stations);
+////        }
+////        else{
+////            System.out.println("Empty!");
+////        }
+//
+//        //查得到
+//        tickets = ticketService.searchRemanentTicket_BJ_SH("徐州","上海");
+//        if(!tickets.isEmpty()) {
+//            System.out.println(tickets.get(0).departStation);
+//            System.out.println(tickets.get(0).destinationStation);
+//            System.out.println(tickets.get(0).stations);
+//        }
+//        else{
+//            System.out.println("Empty!");
+//        }
+//
+//        //查得到
+//        tickets = ticketService.searchRemanentTicket_BJ_SH("徐州","镇江");
+//        if(!tickets.isEmpty()) {
+//            System.out.println(tickets.get(0).departStation);
+//            System.out.println(tickets.get(0).destinationStation);
+//            System.out.println(tickets.get(0).stations);
+//        }
+//        else{
+//            System.out.println("Empty!");
+//        }
+//    }
+//
+//    @Test
+//    @Bean
+//    public void TicketBuyRemanentTicket(){
+//        Ticket ticket = new Ticket();
+//        ticket.name = "郭琦";
+//        ticket.orderId = "G1SC02SE23DA20180711TI135500";
+//        ticket.departTime = "2018-07-11-13:55:00";
+//        ticket.departStation = "镇江";
+//        ticket.destinationStation = "苏州";
+//        ticket.expense = 355;
+//        ticket.status = 1;
+//        ticket.userId ="3728";
+//        ticket.trainNo = "G1";
+//        ticket.seat = "SC23SE23"; // Section 02 Seat 23 第二节车厢 23号座位
+//        ticket.stations = "";
+//        ticket.version = "0";
+//
+//	    ticketService.buyRemanentTicket_BJ_SH(ticket);
+//
+//    }
+//
+//    @Test
+//    @Bean
+//    public void TicketBuyTicket(){
+//        Ticket ticket = new Ticket();
+//        ticket.name = "郭琦";
+//        ticket.orderId = "G1SC02SE23DA20180711TI135500";
+//        ticket.departTime = "2018-07-11-13:55:00";
+//        ticket.departStation = "苏州";
+//        ticket.destinationStation = "上海";
+//        ticket.expense = 355;
+//        ticket.status = 1;
+//        ticket.userId ="3728";
+//        ticket.trainNo = "G1";
+//        ticket.seat = "SC23SE23"; // Section 02 Seat 23 第二节车厢 23号座位
+//        //ticket.stations = "";
+//        ticket.version = "0";
+//
+//        ticketService.buyTicket_BJ_SH(ticket);
+//
+//    }
 
-        //查得到
-        tickets = ticketService.searchRemanentTicket_BJ_SH("徐州","上海");
-        if(!tickets.isEmpty()) {
-            System.out.println(tickets.get(0).departStation);
-            System.out.println(tickets.get(0).destinationStation);
-            System.out.println(tickets.get(0).stations);
-        }
-
-        //查得到
-        tickets = ticketService.searchRemanentTicket_BJ_SH("徐州","镇江");
-        if(!tickets.isEmpty()) {
-            System.out.println(tickets.get(0).departStation);
-            System.out.println(tickets.get(0).destinationStation);
-            System.out.println(tickets.get(0).stations);
-        }
-    }
-
-    @Test
-    @Bean
-    public void TicketFuncModifyString(){
-        TicketServiceImpl ts = new TicketServiceImpl(ticketRepository);
-        String test1,test2,test3,test4,test5,test6,test7,test8,test9;
-        test1 = ts.modifyString(0,3,"0000");
-        test2 = ts.modifyString(0,0,"0000");
-        test3 = ts.modifyString(3,0,"0000");
-        test4 = ts.modifyString(1,2,"0000");
-        test5 = ts.modifyString(-1,5,"0000");
-        test6 = ts.modifyString(10,-9,"0000");
-        test7 = ts.modifyString(2,3,"1110");
-        test8 = ts.modifyString(0,1,"0111");
-        test9 = ts.modifyString(1,7,"1100000111");
-        System.out.println("Test1:"+test1);
-        System.out.println("Test2:"+test2);
-        System.out.println("Test3:"+test3);
-        System.out.println("Test4:"+test4);
-        System.out.println("Test5:"+test5);
-        System.out.println("Test6:"+test6);
-        System.out.println("Test7:"+test7);
-        System.out.println("Test8:"+test8);
-        System.out.println("Test9:"+test9);
-    }
+//    @Test
+//    @Bean
+//    public void TicketFuncModifyString(){
+//        TicketServiceImpl ts = new TicketServiceImpl(ticketRepository,trainRepository);
+//        String test1,test2,test3,test4,test5,test6,test7,test8,test9;
+//        test1 = ts.modifyString(0,3,"0000");
+//        test2 = ts.modifyString(0,0,"0000");
+//        test3 = ts.modifyString(3,0,"0000");
+//        test4 = ts.modifyString(1,2,"0000");
+//        test5 = ts.modifyString(-1,5,"0000");
+//        test6 = ts.modifyString(10,-9,"0000");
+//        test7 = ts.modifyString(2,3,"1110");
+//        test8 = ts.modifyString(0,1,"0111");
+//        test9 = ts.modifyString(1,7,"1100000111");
+//        System.out.println("Test1:"+test1);
+//        System.out.println("Test2:"+test2);
+//        System.out.println("Test3:"+test3);
+//        System.out.println("Test4:"+test4);
+//        System.out.println("Test5:"+test5);
+//        System.out.println("Test6:"+test6);
+//        System.out.println("Test7:"+test7);
+//        System.out.println("Test8:"+test8);
+//        System.out.println("Test9:"+test9);
+//    }
 
 
 

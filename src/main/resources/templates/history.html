@@ -4,7 +4,7 @@
 <th:block th:include="components/head :: head"></th:block>
 <!-- Custom styles for this template -->
 <link href="assets/css/carousel.css" rel="stylesheet">
-<title>铁路售票 - 我的订单</title>
+<title>铁路售票 - 我的历史订单</title>
 <body>
 <div th:include="components/header :: header"></div>
 
@@ -12,7 +12,7 @@
 <div class="container">
     <h1 th:inline="text">欢迎，[[${#httpServletRequest.remoteUser}]]!</h1>
     <br>
-    <h3>我的订单</h3>
+    <h3>我的历史订单</h3>
     <table class="table">
         <tr>
             <th>姓名</th>
@@ -36,9 +36,7 @@
             </tr>
         </div>
     </table>
-
-    <h3>历史订单</h3>
-    <button onclick="location.href='/history'" type="button" class="btn btn-info">查看历史订单</button>
+    <button onclick="location.href='/home'" type="button" class="btn btn-info">返回</button>
     <hr>
     <form th:action="@{/logout}" method="post">
         <button class="btn btn-success" type="submit">退出登录</button>
