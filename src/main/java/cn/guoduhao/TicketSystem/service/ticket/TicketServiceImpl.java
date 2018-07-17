@@ -47,7 +47,7 @@ public class TicketServiceImpl implements TicketService{
             Integer totalExpense = targetTrain.get(0).expense - 126;
             System.out.println(totalExpense);
             TrainStationMap stationInfo = orderService.findOneByTrainNo(trainNo);
-            Integer totalStaitonAmount = stationInfo.stations.size();
+            Integer totalStationAmount = stationInfo.stations.size();
             Integer departNum = orderService.stationNameToInteger(departStation,trainNo);
             Integer destinationNum = orderService.stationNameToInteger(destinationStation,trainNo);
             if(departNum == -1 || destinationNum == -1){
@@ -56,7 +56,7 @@ public class TicketServiceImpl implements TicketService{
             else {
                 DecimalFormat df = new DecimalFormat("#.00");
                 float partitionStationAmount = abs(destinationNum - departNum);
-                String format = df.format((208 + (partitionStationAmount/totalStaitonAmount)*totalExpense ));
+                String format = df.format((208 + (partitionStationAmount/totalStationAmount)*totalExpense ));
                 return Float.valueOf(format);
             }
         }

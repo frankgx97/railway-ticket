@@ -37,7 +37,6 @@
         <div class="progress-bar progress-bar-striped progress-bar-animated bg-success " role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
 </div>
-<script src="/assets/js/jquery-3.3.1.min.js"></script>
 <script>
     //轮询抢票进度
     $(document).ready(function(){
@@ -54,7 +53,7 @@
                   }else{
                       console.log("fail");
                       times++;
-                      if(times >= 2){
+                      if(times >= 5){
                           alert("购票失败");
                           window.location.href="/"
                       }
@@ -63,7 +62,7 @@
                   alert("错误，请重试。");
               }
            });
-        },5000);
+        },3000);
     });
 </script>
 </body>

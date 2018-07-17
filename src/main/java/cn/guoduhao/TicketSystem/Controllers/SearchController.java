@@ -32,8 +32,8 @@ public class SearchController {
         */
         String depart = request.getParameter("depart-station");
         String destination = request.getParameter("destination-station");
+        String departTime = request.getParameter("depart-time");
 
-        //TODO 完成后更改BJSH
         List<String> trainList = ticketService.mapToTrainNo(
                 depart,
                 destination
@@ -45,7 +45,9 @@ public class SearchController {
             List<Train> trainListTemp = trainRepository.findByTrainNo(trainList.get(i));
             for(int j=0;j<trainListTemp.size();j++){
                 trainListTemp.get(j).expense = Math.round(this.ticketService.countFee(depart, destination, trainListTemp.get(j).trainNo));
-                result.add(trainListTemp.get(j));
+                if(trainListTemp.get(j).departTime.contains(departTime)){
+                    result.add(trainListTemp.get(j));
+                }
             }
         }
 
