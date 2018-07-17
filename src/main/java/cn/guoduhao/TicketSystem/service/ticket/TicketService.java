@@ -24,4 +24,5 @@ public interface TicketService {
 
     //票价算法
     float countFee(String departStation,String destinationStation,String trainNo);
+
 }
