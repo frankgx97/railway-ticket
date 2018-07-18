@@ -17,6 +17,9 @@ public interface TicketService {
 
     //Integer buyTicket_BJ_SH(Ticket newTicket);
 
+    //计算到站时间的函数 返回时间
+    String culculateSchedule(String stationName,Integer trainId);
+
     List<String> mapToTrainNo(String departStation,String destinationStation);
 
     //票价算法

@@ -62,6 +62,7 @@ public class TicketServiceImpl implements TicketService{
         }
     }
 
+    @Override
     public String culculateSchedule(String stationName,Integer trainId){
         Integer totalMins = this.culculateTime(stationName,trainId);
         if(totalMins == -1){
@@ -103,7 +104,7 @@ public class TicketServiceImpl implements TicketService{
     }
 
     //计算总分钟数
-    public Integer culculateTime(String stationName,Integer trainId){
+    private Integer culculateTime(String stationName,Integer trainId){
         Optional<Train> train = trainRepository.findOneById(trainId);
         if(!train.isPresent()){
             return -1;

@@ -48,12 +48,15 @@ public class SearchController {
                 if(trainListTemp.get(j).departTime.contains(departTime)){
                     result.add(trainListTemp.get(j));
                 }
+                trainListTemp.get(j).departTime = ticketService.culculateSchedule(depart,trainListTemp.get(j).id);
+                System.out.println(trainListTemp.get(j).departTime);
             }
         }
 
         map.put("trains", result);
         stationMap.put("depart", depart);
         stationMap.put("destination", destination);
+        stationMap.put("departTime", departTime);
         return "search";
     }
 }
