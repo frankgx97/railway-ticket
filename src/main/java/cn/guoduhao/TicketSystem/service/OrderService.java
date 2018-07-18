@@ -6,6 +6,7 @@ import cn.guoduhao.TicketSystem.Models.TrainStationMap;
 import cn.guoduhao.TicketSystem.Models.User;
 import cn.guoduhao.TicketSystem.repository.TrainRepository;
 import cn.guoduhao.TicketSystem.repository.UserRepository;
+import cn.guoduhao.TicketSystem.service.ticket.TicketService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -25,6 +26,9 @@ public class OrderService {
 
     @Autowired
     TrainRepository trainRepository;
+
+    @Autowired
+    TicketService ticketService;
 
     @Autowired
     UserRepository userRepository;
@@ -48,15 +52,16 @@ public class OrderService {
         System.out.println(timestamp.getTime());
 
 
+        String departDate = new String(train.get().departTime.toCharArray(),0,10);
+
         ticket.id = UUID.randomUUID().toString();
         ticket.name = user.get().getName();
         ticket.departStation = depart;//train.get().departStation;
-        ticket.departTime = train.get().departTime;
+        ticket.departTime = departDate + " " + ticketService.culculateSchedule(ticket.departStation,trainId);
         ticket.destinationStation = desination;//train.get().destinationStation;
-        //ToDo:更改票价
-        ticket.expense = train.get().expense;
-        ticket.seat = this.generateSeatNo();
         ticket.trainNo = train.get().trainNo;
+        ticket.expense =  Math.round(ticketService.countFee(ticket.departStation,ticket.destinationStation,ticket.trainNo));
+        ticket.seat = this.generateSeatNo();
         ticket.trainId = train.get().id;
         ticket.status = 0;
         ticket.timestamp = timestamp.getTime()/1000;

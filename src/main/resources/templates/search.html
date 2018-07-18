@@ -13,7 +13,8 @@
         <tr>
             <th>车次</th>
             <th>始发站</th>
-            <th>终到站</th>
+            <th>终点站</th>
+            <th>出发地</th>
             <th>发车时间</th>
             <th>剩余座位</th>
             <th>票价</th>
@@ -25,6 +26,7 @@
             <td th:text=${train.trainNo}></td>
             <td th:text=${train.departStation}></td>
             <td th:text=${train.destinationStation}></td>
+            <td th:text=${depart}></td>
             <td th:text=${train.departTime}></td>
             <td th:text=${train.seatsTotal-train.seatsSold}></td>
             <td th:text=${train.expense}></td>
