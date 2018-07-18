@@ -56,11 +56,73 @@ public class TicketServiceImpl implements TicketService{
             else {
                 DecimalFormat df = new DecimalFormat("#.00");
                 float partitionStationAmount = abs(destinationNum - departNum);
-                String format = df.format((208 + (partitionStationAmount/totalStationAmount)*totalExpense ));
+                String format = df.format((126 + (partitionStationAmount/totalStationAmount)*totalExpense ));
                 return Float.valueOf(format);
             }
         }
     }
+
+    public String culculateSchedule(String stationName,Integer trainId){
+        Integer totalMins = this.culculateTime(stationName,trainId);
+        if(totalMins == -1){
+            return "Error";
+        }
+        Optional<Train> train= trainRepository.findOneById(trainId);
+        if(!train.isPresent()){
+            return "Error";
+        }
+        else{
+
+            char[] timeSchedule = train.get().departTime.toCharArray();
+
+            Integer departMin = Integer.valueOf(new String(timeSchedule , 14 ,2));
+            Integer departhour = Integer.valueOf(new String(timeSchedule , 11 ,2));
+
+            Integer leaveMins = ( totalMins + departMin ) % 60;
+            Integer hours = ( totalMins + departMin ) / 60;
+            Integer leaveHours = ( hours + departhour ) % 24;
+            Integer days = ( hours + departhour ) / 24 ;
+
+            String Mins = "";
+            if(leaveMins<10){
+                Mins = leaveMins.toString() + "0";
+            }
+            else{
+                Mins = leaveMins.toString();
+            }
+
+
+            if(days == 1){
+                return "次日 " + leaveHours.toString() + ":" + Mins;
+            }
+            if(days>1){
+                return days.toString() + "日后 " + leaveHours.toString() + ":" + Mins;
+            }
+            return leaveHours.toString() + ":" + Mins;
+        }
+    }
+
+    //计算总分钟数
+    public Integer culculateTime(String stationName,Integer trainId){
+        Optional<Train> train = trainRepository.findOneById(trainId);
+        if(!train.isPresent()){
+            return -1;
+        }
+        else{
+            TrainStationMap sameTrainStation = orderService.findOneByTrainNo(train.get().trainNo);
+            if(sameTrainStation.timeTable == null){
+                return -1;
+            }
+            Integer StationNum = orderService.stationNameToInteger(stationName,train.get().trainNo);
+            Integer minutes = 0;
+            for(int i = 0;i < StationNum ; i++){
+                minutes += sameTrainStation.timeTable.get(i);
+            }
+            return minutes;
+        }
+
+    }
+
 
 
     //若能够映射到相应trainNo列车 则返回相应trainNo;否则返回""

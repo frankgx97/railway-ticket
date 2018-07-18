@@ -13,6 +13,7 @@ public class TrainStationMap {
     public String id ;
     public String trainNo;
     public List<String> stations ;
+    public List<Integer> timeTable;
 
     public TrainStationMap(){};
 

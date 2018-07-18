@@ -53,6 +53,7 @@ public class OrderService {
         ticket.departStation = depart;//train.get().departStation;
         ticket.departTime = train.get().departTime;
         ticket.destinationStation = desination;//train.get().destinationStation;
+        //ToDo:更改票价
         ticket.expense = train.get().expense;
         ticket.seat = this.generateSeatNo();
         ticket.trainNo = train.get().trainNo;
