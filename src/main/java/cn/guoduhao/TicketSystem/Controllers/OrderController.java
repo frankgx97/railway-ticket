@@ -43,12 +43,16 @@ public class OrderController {
         Optional<Train> train = trainRepository.findOneById(Integer.parseInt(request.getParameter("id")));
         train.get().expense = Math.round(this.ticketService.countFee(depart,destination,train.get().trainNo));
 
+        String departDate = new String(train.get().departTime.toCharArray(),0,10);
+        String departTime =  ticketService.culculateSchedule(depart,train.get().id);
+
         trainMap.put("train", train.get());
 
         map.put("train_id",request.getParameter("id"));
         map.put("ticket_id",ticketId);
         map.put("depart", depart);
         map.put("destination", destination);
+        map.put("departTime",departDate + " " + departTime);
         return "purchase";
     }
 

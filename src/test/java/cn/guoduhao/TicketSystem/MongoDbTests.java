@@ -188,4 +188,54 @@ public class MongoDbTests {
         System.out.println(ticketServiceImpl.countFee("北京","德州","G88"));
     }
 
+//    @Test
+//    @Bean
+//    public void mongoTimeTableTest(){
+//        //预期:0
+//        System.out.println(ticketServiceImpl.culculateTime("北京",119));
+//
+//        //预期:对应总分钟数
+//        System.out.println(ticketServiceImpl.culculateTime("石家庄",119));
+//
+//        //预期:对应总分钟数
+//        System.out.println(ticketServiceImpl.culculateTime("华山北",119));
+//
+//        //预期:对应总分钟数
+//        System.out.println(ticketServiceImpl.culculateTime("西安",119));
+//
+//        //预期:-1
+//        System.out.println(ticketServiceImpl.culculateTime("西安",0));
+//
+//        //预期:-1
+//        System.out.println(ticketServiceImpl.culculateTime("北京",108));
+//
+//        //预期:-1
+//        System.out.println(ticketServiceImpl.culculateTime("西安",108));
+//    }
+
+    @Test
+    @Bean
+    public void mongoTimeTableTest2(){
+        //预期:
+        System.out.println(ticketServiceImpl.culculateSchedule("北京",119));
+
+        //预期:对应总分钟数
+        System.out.println(ticketServiceImpl.culculateSchedule("石家庄",119));
+
+        //预期:对应总分钟数
+        System.out.println(ticketServiceImpl.culculateSchedule("华山北",119));
+
+        //预期:对应总分钟数
+        System.out.println(ticketServiceImpl.culculateSchedule("西安",119));
+
+        //预期:-1
+        System.out.println(ticketServiceImpl.culculateSchedule("西安",0));
+
+        //预期:-1
+        System.out.println(ticketServiceImpl.culculateSchedule("北京",108));
+
+        //预期:-1
+        System.out.println(ticketServiceImpl.culculateSchedule("西安",108));
+    }
+
 }
